@@ -24,11 +24,11 @@ namespace Models
         public List<Access> accessList { get; set; }
         public AccessControlType accessControlType { get; set; }
 
+        /*TODO: fix the signature of the functions
         public Dictionary <string,(string,Access)> getCList ()
         {
 
         }
-
         public Dictionary<string, (string, Access)> getACL()
         {
 
@@ -37,16 +37,16 @@ namespace Models
         public Dictionary<string,Dictionary<string,Access>> getAccessMatrix()
         {
 
-        }
+        }*/
 
         public List<Access> getAccessForFile (File fileName)
         {
-
+            return new List<Access>();
         }
 
         public List <Access> GetAccessForUser (User userName)
         {
-
+            return new List<Access>();
         }
 
         public void addAccess (Access newAccess)

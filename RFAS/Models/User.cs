@@ -9,17 +9,6 @@ namespace Models
         Guest,Regular,Admin
     }
 
-    public enum Classification
-    {
-        TS,
-        Secret,
-        Confidential,
-        Restricted,
-        Official,
-        Unclassified,
-        None
-    }
-
     public class User
     {
         public User(string userName, string userPass, Role userRole, Classification classification=Classification.None)
@@ -39,7 +28,7 @@ namespace Models
 
         public bool checkLogin (string userName,string userPass)
         {
-
+            return true;
         }
     }
 
@@ -73,7 +62,7 @@ namespace Models
 
         public virtual string[] readFile(File fileName)
         {
-
+            return null;
         }
 
         public virtual void deleteFile(File fileName)
@@ -93,7 +82,7 @@ namespace Models
 
         public virtual File deHashFile(File fileName)
         {
-
+            return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, AccessType.None, null)));
         }
     }
 
@@ -115,12 +104,12 @@ namespace Models
 
         public File hashFile(File fileName, User userName)
         {
-           
+            return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, AccessType.None, null)));
         }
 
         public User createUser (string userName, string userPass, UserType type)
         {
-            checkPass(userPass);
+            return new User(null, null, new Role(null, AccessType.None, null));
         }
 
         public void deleteUser (User userName)

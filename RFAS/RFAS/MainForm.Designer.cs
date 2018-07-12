@@ -56,7 +56,9 @@
             this.passTextBox.AcceptsTab = true;
             this.passTextBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.passTextBox.Font = new System.Drawing.Font("Forte", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passTextBox.ImeMode = System.Windows.Forms.ImeMode.On;
             this.passTextBox.Location = new System.Drawing.Point(379, 430);
+            this.passTextBox.MaxLength = 15;
             this.passTextBox.Name = "passTextBox";
             this.passTextBox.PasswordChar = '*';
             this.passTextBox.Size = new System.Drawing.Size(223, 36);
@@ -71,7 +73,9 @@
             this.UserNameTextBox.AcceptsTab = true;
             this.UserNameTextBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.UserNameTextBox.Font = new System.Drawing.Font("FrankRuehl", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.UserNameTextBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.UserNameTextBox.Location = new System.Drawing.Point(379, 385);
+            this.UserNameTextBox.MaxLength = 15;
             this.UserNameTextBox.Name = "UserNameTextBox";
             this.UserNameTextBox.Size = new System.Drawing.Size(223, 36);
             this.UserNameTextBox.TabIndex = 2;

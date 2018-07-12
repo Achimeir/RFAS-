@@ -8,16 +8,16 @@ namespace Models
 {
     class Envirnoment
     {
-        public Envirnoment(List<User> usersList, User currentUser, AccessControlStructure accessModel, List<Access> accessList)
+        public Envirnoment(List<User> usersList, User new_currentUser, AccessControlStructure accessModel, List<Access> accessList)
         {
             this.usersList = usersList;
-            this.currentUser = currentUser;
+            currentUser = new_currentUser;
             this.accessModel = accessModel;
             this.accessList = accessList;
         }
 
         public List<User> usersList { get; set; }
-        public User currentUser { get; set; }
+        public static User currentUser { get; set; }
         public AccessControlStructure accessModel { get; set; }
         public List <Access> accessList { get; set; }
         public List<File> filesList { get; set; }
@@ -34,7 +34,7 @@ namespace Models
 
         public List<string> getUsersNames ()
         {
-
+            return new List<string>();
         }
 
 

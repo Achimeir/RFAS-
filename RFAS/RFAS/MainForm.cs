@@ -38,6 +38,9 @@ namespace RFAS
             if (UserNameTextBox.Text != "user name" && passTextBox.Text!="Password")
             {
                 MessageBox.Show("Welcome to the system " + UserNameTextBox.Text,"Welcome Message");
+                DesktopForm desktopForm = new DesktopForm();
+                desktopForm.Show();
+
             }
             else
             {

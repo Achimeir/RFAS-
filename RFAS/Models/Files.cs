@@ -9,17 +9,6 @@ namespace Models
     public enum FileType
     {Text,Picture}
 
-    public enum Classification
-    {
-        TS,
-        Secret,
-        Confidential,
-        Restricted,
-        Official,
-        Unclassified,
-        None
-    }
-
     public class File
     {
         public File(string fileName, string filePath, FileType fileType, bool isEncrypted, List<string> validityBit, User creator, Classification classification=Classification.None)
@@ -43,7 +32,7 @@ namespace Models
 
         public string[] Read ()
         {
-
+            return null;
         }
 
         public void Write ()
@@ -53,12 +42,12 @@ namespace Models
 
         public File Encrypt (string userHashKey)
         {
-
+            return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, AccessType.None, null)));
         }
 
         public File Decrypt (string userHashKey)
         {
-
+            return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, AccessType.None, null)));
         }
 
 

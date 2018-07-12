@@ -18,7 +18,18 @@ namespace Models
         RWD       
     }
 
-    class Access
+    public enum Classification
+    {
+        TS,
+        Secret,
+        Confidential,
+        Restricted,
+        Official,
+        Unclassified,
+        None
+    }
+
+    public class Access
     {
         public Access(User accessCreator, User userName, File fileName, AccessType accessType=AccessType.None, bool canGrant=true, bool canDeny=true)
         {
