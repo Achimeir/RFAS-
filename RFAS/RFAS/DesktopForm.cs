@@ -52,6 +52,11 @@ namespace RFAS
             }
 
         }
+
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
  

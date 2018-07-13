@@ -42,6 +42,7 @@ namespace RFAS
             this.imageFileListBox = new System.Windows.Forms.ListBox();
             this.textFilelistBox = new System.Windows.Forms.ListBox();
             this.welcomLabel = new System.Windows.Forms.Label();
+            this.loginButton = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.desktopTab.SuspendLayout();
             this.SuspendLayout();
@@ -134,6 +135,7 @@ namespace RFAS
             // 
             this.desktopTab.BackColor = System.Drawing.Color.Transparent;
             this.desktopTab.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.desktopTab.Controls.Add(this.loginButton);
             this.desktopTab.Controls.Add(this.label2);
             this.desktopTab.Controls.Add(this.label1);
             this.desktopTab.Controls.Add(this.imageFileListBox);
@@ -153,7 +155,7 @@ namespace RFAS
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label2.Location = new System.Drawing.Point(137, 78);
+            this.label2.Location = new System.Drawing.Point(138, 78);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(165, 24);
             this.label2.TabIndex = 5;
@@ -178,7 +180,7 @@ namespace RFAS
             "bbbb",
             "aaa",
             "qqq"});
-            this.imageFileListBox.Location = new System.Drawing.Point(122, 105);
+            this.imageFileListBox.Location = new System.Drawing.Point(123, 111);
             this.imageFileListBox.Name = "imageFileListBox";
             this.imageFileListBox.Size = new System.Drawing.Size(192, 190);
             this.imageFileListBox.TabIndex = 3;
@@ -193,7 +195,7 @@ namespace RFAS
             "bbbb",
             "aaa",
             "qqq"});
-            this.textFilelistBox.Location = new System.Drawing.Point(470, 105);
+            this.textFilelistBox.Location = new System.Drawing.Point(470, 111);
             this.textFilelistBox.Name = "textFilelistBox";
             this.textFilelistBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.textFilelistBox.Size = new System.Drawing.Size(192, 190);
@@ -204,13 +206,31 @@ namespace RFAS
             // 
             this.welcomLabel.AutoSize = true;
             this.welcomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.welcomLabel.Location = new System.Drawing.Point(287, 0);
+            this.welcomLabel.Location = new System.Drawing.Point(298, 7);
             this.welcomLabel.Name = "welcomLabel";
             this.welcomLabel.Size = new System.Drawing.Size(165, 24);
             this.welcomLabel.TabIndex = 0;
             this.welcomLabel.Text = "ברוך הבא משתמש X";
             this.welcomLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.welcomLabel.Click += new System.EventHandler(this.welcomLabel_Click_2);
+            // 
+            // loginButton
+            // 
+            this.loginButton.AccessibleRole = System.Windows.Forms.AccessibleRole.Border;
+            this.loginButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.loginButton.Cursor = System.Windows.Forms.Cursors.No;
+            this.loginButton.DialogResult = System.Windows.Forms.DialogResult.Yes;
+            this.loginButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.WindowText;
+            this.loginButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkOrange;
+            this.loginButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.SteelBlue;
+            this.loginButton.Font = new System.Drawing.Font("Forte", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.loginButton.Location = new System.Drawing.Point(347, 360);
+            this.loginButton.Name = "loginButton";
+            this.loginButton.Size = new System.Drawing.Size(94, 36);
+            this.loginButton.TabIndex = 6;
+            this.loginButton.Text = "Logout";
+            this.loginButton.UseVisualStyleBackColor = true;
+            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
             // DesktopForm
             // 
@@ -242,5 +262,6 @@ namespace RFAS
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox imageFileListBox;
+        private System.Windows.Forms.Button loginButton;
     }
 }

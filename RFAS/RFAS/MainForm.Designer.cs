@@ -98,6 +98,7 @@
             // 
             this.loginButton.AccessibleRole = System.Windows.Forms.AccessibleRole.Border;
             this.loginButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.loginButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.loginButton.DialogResult = System.Windows.Forms.DialogResult.Yes;
             this.loginButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.WindowText;
             this.loginButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DarkOrange;

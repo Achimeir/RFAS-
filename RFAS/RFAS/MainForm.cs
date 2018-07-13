@@ -29,7 +29,7 @@ namespace RFAS
                 {
                     if (item.userName == UserNameTextBox.Text && item.userPass == passTextBox.Text)
                     {
-                        MessageBox.Show("Welcom user " + item.userName);
+                        MessageBox.Show("Welcom user " + item.userName,"Login successfully",MessageBoxButtons.OK,MessageBoxIcon.None);
                         successLogin = true;
                         desktopForm.environ.currentUser = UserNameTextBox.Text;
                         break;
@@ -37,10 +37,14 @@ namespace RFAS
                 }
 
                 if (successLogin)
-                    desktopForm.Show();
+                {
+                    UserNameTextBox.Text = "user name";
+                    passTextBox.Text = "Password";
+                    desktopForm.ShowDialog();
+                }
 
                 else
-                    MessageBox.Show("The user name or the password are incorrect","Login Error",MessageBoxButtons.OKCancel,MessageBoxIcon.Error);
+                    MessageBox.Show("The user name or the password are incorrect", "Login Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
             }
             else
                 MessageBox.Show("Please enter valid user name and password", "Login Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
