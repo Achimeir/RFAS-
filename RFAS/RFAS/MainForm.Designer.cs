@@ -48,7 +48,6 @@
             this.LoginPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.LoginPicture.TabIndex = 0;
             this.LoginPicture.TabStop = false;
-            this.LoginPicture.Click += new System.EventHandler(this.LoginPicture_Click);
             // 
             // passTextBox
             // 
@@ -130,7 +129,6 @@
             this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Name = "MainForm";
             this.Text = "RFAS";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.LoginPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

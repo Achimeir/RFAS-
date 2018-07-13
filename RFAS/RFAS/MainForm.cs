@@ -16,36 +16,35 @@ namespace RFAS
         public MainForm()
         {
             InitializeComponent();
-
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void LoginPicture_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void userNameTextBox_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-
         }
 
         private void loginButton_Click(object sender, EventArgs e)
         {
+            bool successLogin = false;
+            DesktopForm desktopForm = new DesktopForm();
+
             if (UserNameTextBox.Text != "user name" && passTextBox.Text!="Password")
             {
-                MessageBox.Show("Welcome to the system " + UserNameTextBox.Text,"Welcome Message");
-                DesktopForm desktopForm = new DesktopForm();
-                desktopForm.Show();
+                foreach (User item in Models.Environment.usersList)
+                {
+                    if (item.userName == UserNameTextBox.Text && item.userPass == passTextBox.Text)
+                    {
+                        MessageBox.Show("Welcom user " + item.userName);
+                        successLogin = true;
+                        desktopForm.environ.currentUser = UserNameTextBox.Text;
+                        break;
+                    }
+                }
 
+                if (successLogin)
+                    desktopForm.Show();
+
+                else
+                    MessageBox.Show("The user name or the password are incorrect","Login Error",MessageBoxButtons.OKCancel,MessageBoxIcon.Error);
             }
             else
-            {
-                MessageBox.Show("Please enter valid user name and password", "Welcome Message");
-            }
+                MessageBox.Show("Please enter valid user name and password", "Login Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
         }
+
     }
 }

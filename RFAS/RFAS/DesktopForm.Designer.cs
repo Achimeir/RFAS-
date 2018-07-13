@@ -37,6 +37,10 @@ namespace RFAS
             this.filesTab = new System.Windows.Forms.TabPage();
             this.usersTab = new System.Windows.Forms.TabPage();
             this.desktopTab = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.imageFileListBox = new System.Windows.Forms.ListBox();
+            this.textFilelistBox = new System.Windows.Forms.ListBox();
             this.welcomLabel = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.desktopTab.SuspendLayout();
@@ -58,7 +62,7 @@ namespace RFAS
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.Padding = new System.Drawing.Point(0, 0);
-            this.tabControl.SelectedIndex = 0;
+            this.tabControl.SelectedIndex = 5;
             this.tabControl.Size = new System.Drawing.Size(797, 450);
             this.tabControl.TabIndex = 1;
             // 
@@ -73,7 +77,6 @@ namespace RFAS
             this.environTab.TabIndex = 4;
             this.environTab.Text = " סביבה  ";
             this.environTab.UseVisualStyleBackColor = true;
-            this.environTab.Click += new System.EventHandler(this.tabPage5_Click);
             // 
             // passTab
             // 
@@ -113,7 +116,6 @@ namespace RFAS
             this.filesTab.TabIndex = 1;
             this.filesTab.Text = "  קבצים  ";
             this.filesTab.UseVisualStyleBackColor = true;
-            this.filesTab.Click += new System.EventHandler(this.filesTab_Click);
             // 
             // usersTab
             // 
@@ -132,6 +134,10 @@ namespace RFAS
             // 
             this.desktopTab.BackColor = System.Drawing.Color.Transparent;
             this.desktopTab.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.desktopTab.Controls.Add(this.label2);
+            this.desktopTab.Controls.Add(this.label1);
+            this.desktopTab.Controls.Add(this.imageFileListBox);
+            this.desktopTab.Controls.Add(this.textFilelistBox);
             this.desktopTab.Controls.Add(this.welcomLabel);
             this.desktopTab.Location = new System.Drawing.Point(4, 40);
             this.desktopTab.Margin = new System.Windows.Forms.Padding(0);
@@ -140,17 +146,71 @@ namespace RFAS
             this.desktopTab.Size = new System.Drawing.Size(789, 406);
             this.desktopTab.TabIndex = 5;
             this.desktopTab.Text = "  בית  ";
+            this.desktopTab.ToolTipText = "Home Page";
             this.desktopTab.UseVisualStyleBackColor = true;
-            this.desktopTab.Click += new System.EventHandler(this.desktopTab_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label2.Location = new System.Drawing.Point(137, 78);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(165, 24);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "רשימת התמונות שלך";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label1.Location = new System.Drawing.Point(488, 78);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(161, 24);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "רשימת הקבצים שלך";
+            // 
+            // imageFileListBox
+            // 
+            this.imageFileListBox.FormattingEnabled = true;
+            this.imageFileListBox.ItemHeight = 31;
+            this.imageFileListBox.Items.AddRange(new object[] {
+            "ttttt",
+            "bbbb",
+            "aaa",
+            "qqq"});
+            this.imageFileListBox.Location = new System.Drawing.Point(122, 105);
+            this.imageFileListBox.Name = "imageFileListBox";
+            this.imageFileListBox.Size = new System.Drawing.Size(192, 190);
+            this.imageFileListBox.TabIndex = 3;
+            this.imageFileListBox.SelectedIndexChanged += new System.EventHandler(this.imageFileListBox_SelectedIndexChanged);
+            // 
+            // textFilelistBox
+            // 
+            this.textFilelistBox.FormattingEnabled = true;
+            this.textFilelistBox.ItemHeight = 31;
+            this.textFilelistBox.Items.AddRange(new object[] {
+            "ttttt",
+            "bbbb",
+            "aaa",
+            "qqq"});
+            this.textFilelistBox.Location = new System.Drawing.Point(470, 105);
+            this.textFilelistBox.Name = "textFilelistBox";
+            this.textFilelistBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.textFilelistBox.Size = new System.Drawing.Size(192, 190);
+            this.textFilelistBox.TabIndex = 2;
+            this.textFilelistBox.SelectedIndexChanged += new System.EventHandler(this.textFilelistBox_SelectedIndexChanged);
             // 
             // welcomLabel
             // 
             this.welcomLabel.AutoSize = true;
-            this.welcomLabel.Location = new System.Drawing.Point(316, 36);
+            this.welcomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.welcomLabel.Location = new System.Drawing.Point(287, 0);
             this.welcomLabel.Name = "welcomLabel";
-            this.welcomLabel.Size = new System.Drawing.Size(269, 31);
+            this.welcomLabel.Size = new System.Drawing.Size(165, 24);
             this.welcomLabel.TabIndex = 0;
-            this.welcomLabel.Text = "Welcome user Admin";
+            this.welcomLabel.Text = "ברוך הבא משתמש X";
+            this.welcomLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.welcomLabel.Click += new System.EventHandler(this.welcomLabel_Click_2);
             // 
             // DesktopForm
             // 
@@ -178,5 +238,9 @@ namespace RFAS
         private System.Windows.Forms.TabPage environTab;
         private System.Windows.Forms.TabPage desktopTab;
         private System.Windows.Forms.Label welcomLabel;
+        private System.Windows.Forms.ListBox textFilelistBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox imageFileListBox;
     }
 }

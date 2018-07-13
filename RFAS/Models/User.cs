@@ -21,7 +21,7 @@ namespace Models
 
 
         public string userName { get; private set; }
-        private string userPass { get; set; }
+        public string userPass { get; set; }
         public Classification classification { get; set; }
         public Role userRole { get; set; }
 

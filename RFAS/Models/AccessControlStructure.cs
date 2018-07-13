@@ -13,7 +13,7 @@ namespace Models
         AccessMatrix
     }
 
-    class AccessControlStructure
+    public class AccessControlStructure
     {
         public AccessControlStructure(List<Access> accessList, AccessControlType accessControlType)
         {
