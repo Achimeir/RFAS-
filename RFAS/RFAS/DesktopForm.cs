@@ -13,13 +13,14 @@ namespace RFAS
 {
     public partial class DesktopForm : Form
     {
-        public Models.Environment environ = new Models.Environment(null, null, "Admin", null);
-        public DesktopForm()
+        public Models.Environment environ;
+        public DesktopForm(string currentUser)
         {
             InitializeComponent();
+            environ = new Models.Environment(currentUser);
         }
 
-        private void DesktopForm_Load(object sender, EventArgs e)
+    private void DesktopForm_Load(object sender, EventArgs e)
         {
             this.welcomLabel.Text = "ברוך הבא משתמש  " + environ.currentUser;
         }

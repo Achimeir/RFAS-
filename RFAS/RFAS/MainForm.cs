@@ -21,7 +21,7 @@ namespace RFAS
         private void loginButton_Click(object sender, EventArgs e)
         {
             bool successLogin = false;
-            DesktopForm desktopForm = new DesktopForm();
+            DesktopForm desktopForm;
 
             if (UserNameTextBox.Text != "user name" && passTextBox.Text!="Password")
             {
@@ -29,15 +29,15 @@ namespace RFAS
                 {
                     if (item.userName == UserNameTextBox.Text && item.userPass == passTextBox.Text)
                     {
-                        MessageBox.Show("Welcom user " + item.userName,"Login successfully",MessageBoxButtons.OK,MessageBoxIcon.None);
                         successLogin = true;
-                        desktopForm.environ.currentUser = UserNameTextBox.Text;
                         break;
                     }
                 }
 
                 if (successLogin)
                 {
+                    MessageBox.Show("Welcom user " + UserNameTextBox.Text, "Login successfully", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    desktopForm = new DesktopForm(UserNameTextBox.Text);
                     UserNameTextBox.Text = "user name";
                     passTextBox.Text = "Password";
                     desktopForm.ShowDialog();
