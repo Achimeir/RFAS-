@@ -23,21 +23,19 @@ namespace RFAS
             bool successLogin = false;
             DesktopForm desktopForm;
 
+            
             if (UserNameTextBox.Text != "user name" && passTextBox.Text!="Password")
             {
-                foreach (User item in Models.Environment.usersList)
-                {
-                    if (item.userName == UserNameTextBox.Text && item.userPass == passTextBox.Text)
-                    {
-                        successLogin = true;
-                        break;
-                    }
-                }
+                var users = Models.Environment.usersList.Where(u => u.userName == UserNameTextBox.Text && u.userPass == passTextBox.Text);
+
+                successLogin = users.Any();
+
 
                 if (successLogin)
                 {
-                    MessageBox.Show("Welcom user " + UserNameTextBox.Text, "Login successfully", MessageBoxButtons.OK, MessageBoxIcon.None);
-                    desktopForm = new DesktopForm(UserNameTextBox.Text);
+                    MessageBox.Show("Welcome user " + UserNameTextBox.Text, "Login successfully", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    // assuming there can only be one result.
+                    desktopForm = new DesktopForm(users.First());
                     UserNameTextBox.Text = "user name";
                     passTextBox.Text = "Password";
                     desktopForm.ShowDialog();

@@ -24,9 +24,9 @@ namespace Models
         public static List<Access> accessList;
         public static AccessControlStructure accessModel;
 
-        public string currentUser { get; set; }
+        public User currentUser { get; set; }
 
-        public Environment(string currentUser)
+        public Environment(User currentUser)
         {
            this.currentUser = currentUser;       
         }
