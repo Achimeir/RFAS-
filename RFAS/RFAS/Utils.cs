@@ -16,4 +16,12 @@ public static class Utils
     {
         return (T)Enum.Parse(typeof(T), value, true);
     }
+
+    public static void HandleOnlyOnceSelectedItemWithinListBox(ListBox f, ListBox o)
+    {
+        if(f.SelectedIndex != -1)
+        {
+            o.SelectedIndex = -1;
+        }
+    }
 }

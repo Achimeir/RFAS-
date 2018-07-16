@@ -29,8 +29,6 @@ namespace RFAS
             lstBxPics.ClearSelected();
         }
 
-        
-
         private void DesktopForm_Load(object sender, EventArgs e)
         {
             this.welcomLabel.Text = "ברוך הבא משתמש  " + environ.currentUser.userName;
@@ -42,28 +40,7 @@ namespace RFAS
             //    if (item.userName== environ.currentUser)
             //        MessageBox.Show("How are you feeling today " +item.userName + " ?", ";)", MessageBoxButtons.OK, MessageBoxIcon.Question);
         }
-
-        private void textFilelistBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (textFilelistBox.SelectedItem!=null)
-            {
-                string selectedFile = textFilelistBox.SelectedItem.ToString();
-                MessageBox.Show("you select the file " + selectedFile, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                textFilelistBox.ClearSelected();
-
-            }
-        }
-
-        private void imageFileListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (imageFileListBox.SelectedItem!=null)
-            {
-                string selectedImage = imageFileListBox.SelectedItem.ToString();
-                MessageBox.Show("you select the image " + selectedImage, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                imageFileListBox.ClearSelected();
-            }
-
-        }
+        
 
         private void loginButton_Click(object sender, EventArgs e)
         {
@@ -115,7 +92,28 @@ namespace RFAS
             Utils.InitializeListBox<Models.User>(lbUsers, "userName", "userName", Models.Environment.usersList);
         }
 
+        private void btnDeleteFiles_Click(object sender, EventArgs e)
+        {
+            
+        }
 
+        private void btnAddFile_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstBxFiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Utils.HandleOnlyOnceSelectedItemWithinListBox(lstBxFiles, lstBxPics);
+            
+        }
+
+        private void lstBxPics_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Utils.HandleOnlyOnceSelectedItemWithinListBox(lstBxPics, lstBxFiles);
+        }
+
+        
     }
 }
  
