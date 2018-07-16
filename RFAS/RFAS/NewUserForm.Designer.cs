@@ -109,7 +109,7 @@
             // lblPswStrength
             // 
             this.lblPswStrength.AutoSize = true;
-            this.lblPswStrength.Location = new System.Drawing.Point(50, 39);
+            this.lblPswStrength.Location = new System.Drawing.Point(52, 39);
             this.lblPswStrength.Name = "lblPswStrength";
             this.lblPswStrength.Size = new System.Drawing.Size(0, 13);
             this.lblPswStrength.TabIndex = 7;

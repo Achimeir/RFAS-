@@ -46,7 +46,26 @@ namespace RFAS
             }
             else
             {
-                lblPswStrength.Text = PasswordCheckerWrapper.getPasswordScore(txtBxPsw.Text).ToString();
+                string passwordLengthText = "";
+                int score = PasswordCheckerWrapper.getPasswordScore(txtBxPsw.Text);
+                if (score >= 0 && score < 2)
+                {
+                    passwordLengthText = "סיסמא חלשה!";
+                    lblPswStrength.ForeColor = Color.Red;
+                }
+                else if (score >= 2 && score < 4)
+                {
+                    passwordLengthText = "סיסמא טובה!";
+                    lblPswStrength.ForeColor = Color.Purple;
+                }
+                else
+                {
+                    passwordLengthText = "סיסמא מצויינת!";
+                    lblPswStrength.ForeColor = Color.Green;
+                }
+
+                lblPswStrength.Text = passwordLengthText;
+
             }
         }
     }
