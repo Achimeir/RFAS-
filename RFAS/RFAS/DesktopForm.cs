@@ -96,13 +96,16 @@ namespace RFAS
         {
             // TODO: check permissions?
             ListBox listBoxWithSelectedItem = (lstBxFiles.SelectedIndex != -1) ? lstBxFiles : lstBxPics;
-            File v = (File)listBoxWithSelectedItem.SelectedItem;
-            if (DialogResult.Yes == MessageBox.Show("אתה בטוח שאתה רוצה למחוק את הקובץ הזה? " + v.fileName + " ?", "מחיקה", MessageBoxButtons.YesNo))
+            if (listBoxWithSelectedItem.SelectedItem != null)
             {
-                Models.Environment.filesList.Remove(v);
-                IEnumerable<File> userFiles = Models.Environment.filesList.Where(f => f.creator == environ.currentUser);
-                Utils.InitializeListBox<File>(lstBxFiles, "fileName", "fileName", userFiles.Where(f => f.fileType == FileType.Text).ToList());
-                Utils.InitializeListBox<File>(lstBxPics, "fileName", "fileName", userFiles.Where(f => f.fileType == FileType.Picture).ToList());
+                File v = (File)listBoxWithSelectedItem.SelectedItem;
+                if (DialogResult.Yes == MessageBox.Show("אתה בטוח שאתה רוצה למחוק את הקובץ הזה? " + v.fileName + " ?", "מחיקה", MessageBoxButtons.YesNo))
+                {
+                    Models.Environment.filesList.Remove(v);
+                    IEnumerable<File> userFiles = Models.Environment.filesList.Where(f => f.creator == environ.currentUser);
+                    Utils.InitializeListBox<File>(lstBxFiles, "fileName", "fileName", userFiles.Where(f => f.fileType == FileType.Text).ToList());
+                    Utils.InitializeListBox<File>(lstBxPics, "fileName", "fileName", userFiles.Where(f => f.fileType == FileType.Picture).ToList());
+                }
             }
         }
 
