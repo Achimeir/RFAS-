@@ -20,11 +20,13 @@ namespace RFAS
             environ = new Models.Environment(currentUser);
 
 
-            Utils.InitializeListBox<Models.User>(lbUsers, "userName", "userName", Models.Environment.usersList);
+            Utils.InitializeListBox<User>(lbUsers, "userName", "userName", Models.Environment.usersList);
+            IEnumerable<File> userFiles = Models.Environment.filesList.Where(f => f.creator == currentUser);
+            Utils.InitializeListBox<File>(lstBxFiles, "fileName", "fileName", userFiles.Where(f => f.fileType == FileType.Text).ToList());
+            Utils.InitializeListBox<File>(lstBxPics, "fileName", "fileName", userFiles.Where(f => f.fileType == FileType.Picture).ToList());
             lbUsers.ClearSelected();
-            
-
-
+            lstBxFiles.ClearSelected();
+            lstBxPics.ClearSelected();
         }
 
         

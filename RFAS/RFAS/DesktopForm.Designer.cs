@@ -47,7 +47,12 @@ namespace RFAS
             this.imageFileListBox = new System.Windows.Forms.ListBox();
             this.textFilelistBox = new System.Windows.Forms.ListBox();
             this.welcomLabel = new System.Windows.Forms.Label();
+            this.lblFiles = new System.Windows.Forms.Label();
+            this.lstBxFiles = new System.Windows.Forms.ListBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lstBxPics = new System.Windows.Forms.ListBox();
             this.tabControl.SuspendLayout();
+            this.filesTab.SuspendLayout();
             this.userTab.SuspendLayout();
             this.desktopTab.SuspendLayout();
             this.SuspendLayout();
@@ -115,6 +120,10 @@ namespace RFAS
             // 
             this.filesTab.BackColor = System.Drawing.Color.Transparent;
             this.filesTab.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.filesTab.Controls.Add(this.label4);
+            this.filesTab.Controls.Add(this.lstBxPics);
+            this.filesTab.Controls.Add(this.lblFiles);
+            this.filesTab.Controls.Add(this.lstBxFiles);
             this.filesTab.Location = new System.Drawing.Point(4, 40);
             this.filesTab.Margin = new System.Windows.Forms.Padding(0);
             this.filesTab.Name = "filesTab";
@@ -287,6 +296,54 @@ namespace RFAS
             this.welcomLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.welcomLabel.Click += new System.EventHandler(this.welcomLabel_Click_2);
             // 
+            // lblFiles
+            // 
+            this.lblFiles.AutoSize = true;
+            this.lblFiles.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lblFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.lblFiles.Location = new System.Drawing.Point(525, 34);
+            this.lblFiles.Name = "lblFiles";
+            this.lblFiles.Size = new System.Drawing.Size(197, 24);
+            this.lblFiles.TabIndex = 8;
+            this.lblFiles.Text = "רשימת קבצים ששיכים לך";
+            // 
+            // lstBxFiles
+            // 
+            this.lstBxFiles.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstBxFiles.DisplayMember = "userName";
+            this.lstBxFiles.FormattingEnabled = true;
+            this.lstBxFiles.ItemHeight = 31;
+            this.lstBxFiles.Location = new System.Drawing.Point(525, 71);
+            this.lstBxFiles.Name = "lstBxFiles";
+            this.lstBxFiles.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lstBxFiles.Size = new System.Drawing.Size(192, 188);
+            this.lstBxFiles.TabIndex = 7;
+            this.lstBxFiles.ValueMember = "userName";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label4.Location = new System.Drawing.Point(215, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(207, 24);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "רשימת תמונות ששייכות לך";
+            // 
+            // lstBxPics
+            // 
+            this.lstBxPics.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lstBxPics.DisplayMember = "userName";
+            this.lstBxPics.FormattingEnabled = true;
+            this.lstBxPics.ItemHeight = 31;
+            this.lstBxPics.Location = new System.Drawing.Point(226, 71);
+            this.lstBxPics.Name = "lstBxPics";
+            this.lstBxPics.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lstBxPics.Size = new System.Drawing.Size(192, 188);
+            this.lstBxPics.TabIndex = 9;
+            this.lstBxPics.ValueMember = "userName";
+            // 
             // DesktopForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -299,6 +356,8 @@ namespace RFAS
             this.Text = "DesktopForm";
             this.Load += new System.EventHandler(this.DesktopForm_Load);
             this.tabControl.ResumeLayout(false);
+            this.filesTab.ResumeLayout(false);
+            this.filesTab.PerformLayout();
             this.userTab.ResumeLayout(false);
             this.userTab.PerformLayout();
             this.desktopTab.ResumeLayout(false);
@@ -325,5 +384,9 @@ namespace RFAS
         private System.Windows.Forms.ListBox lbUsers;
         private System.Windows.Forms.Button btnCreateUser;
         private System.Windows.Forms.Button btnDeleteUser;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListBox lstBxPics;
+        private System.Windows.Forms.Label lblFiles;
+        private System.Windows.Forms.ListBox lstBxFiles;
     }
 }

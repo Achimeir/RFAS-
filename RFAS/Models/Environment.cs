@@ -37,7 +37,11 @@ namespace Models
                                            new RegularUser ("Rani","12345",null),
                                            new GuestUser ("Guest","1234",null)};
 
-            filesList = new List<File>() { new File("file1", "c:/temp", FileType.Text, false, null, usersList[1]) };
+            filesList = new List<File>() { new File("file1", "c:/temp", FileType.Text, false, null, usersList[1]),
+             new File("file2", "c:/temp", FileType.Text, false, null, usersList[1]),
+             new File("file3", "c:/temp", FileType.Picture, false, null, usersList[1]),
+            new File("fileGuest1", "c:/temp", FileType.Text, false, null, usersList[2]),
+             new File("fileGuest2", "c:/temp", FileType.Picture, false, null, usersList[2])};
 
             accessList = new List<Access>() { new Access(usersList[1], usersList[1], filesList[0], AccessType.RWD) };
 
