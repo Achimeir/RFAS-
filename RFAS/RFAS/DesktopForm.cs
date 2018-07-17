@@ -18,15 +18,9 @@ namespace RFAS
         {
             InitializeComponent();
             environ = new Models.Environment(currentUser);
-
-
             Utils.InitializeListBox<User>(lbUsers, "userName", "userName", Models.Environment.usersList);
-            IEnumerable<File> userFiles = Models.Environment.filesList.Where(f => f.creator == currentUser);
-            Utils.InitializeListBox<File>(lstBxFiles, "fileName", "fileName", userFiles.Where(f => f.fileType == FileType.Text).ToList());
-            Utils.InitializeListBox<File>(lstBxPics, "fileName", "fileName", userFiles.Where(f => f.fileType == FileType.Picture).ToList());
             lbUsers.ClearSelected();
-            lstBxFiles.ClearSelected();
-            lstBxPics.ClearSelected();
+            initializeFilesLists();
         }
 
         private void DesktopForm_Load(object sender, EventArgs e)
@@ -99,12 +93,17 @@ namespace RFAS
             if (listBoxWithSelectedItem.SelectedItem != null)
             {
                 File v = (File)listBoxWithSelectedItem.SelectedItem;
-                if (DialogResult.Yes == MessageBox.Show("אתה בטוח שאתה רוצה למחוק את הקובץ הזה? " + v.fileName + " ?", "מחיקה", MessageBoxButtons.YesNo))
+                if (DialogResult.Yes == MessageBox.Show("אתה בטוח שאתה רוצה למחוק את הקובץ הזה " + v.fileName + " ?", "מחיקה", MessageBoxButtons.YesNo))
                 {
-                    Models.Environment.filesList.Remove(v);
-                    IEnumerable<File> userFiles = Models.Environment.filesList.Where(f => f.creator == environ.currentUser);
-                    Utils.InitializeListBox<File>(lstBxFiles, "fileName", "fileName", userFiles.Where(f => f.fileType == FileType.Text).ToList());
-                    Utils.InitializeListBox<File>(lstBxPics, "fileName", "fileName", userFiles.Where(f => f.fileType == FileType.Picture).ToList());
+                    int userAccessPremission = (int)(environ.currentUser.userRole.filesDict[v]);
+                    if (userAccessPremission == 3 || userAccessPremission >= 5)
+                    {
+                        Models.Environment.filesList.Remove(v);
+                        MessageBox.Show(" נמחק " + v.fileName+" הקובץ ", "מחיקה", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        initializeFilesLists();
+                    }
+                    else
+                        MessageBox.Show(" ולכן אתה לא יכול למחוק " + (environ.currentUser.userRole.filesDict[v])+ " ההרשאות שלך לקובץ הן ", "שגיאה",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }
             }
         }
@@ -116,19 +115,33 @@ namespace RFAS
             {
                 // TODO: fix parameters.
                 // TODO: check permissions to do this thing.
-                File f = new File(FileDialog.SafeFileName, FileDialog.FileName, 
-                    Utils.getFileTypeAccordingToFile(FileDialog.SafeFileName), 
+                File f = new File(FileDialog.SafeFileName, FileDialog.FileName,
+                    Utils.getFileTypeAccordingToFile(FileDialog.SafeFileName),
                     false, null, environ.currentUser);
 
 
                 Random r = new Random();
-                Models.Environment.filesList.Add(f);
-                AccessType accessType = (AccessType)r.Next(0, 8);
+                if (!Models.Environment.filesList.Exists(file => file.fileName == f.fileName))
+                {
+                    Models.Environment.filesList.Add(f);
+                    AccessType accessType = (AccessType)r.Next(0, 8);
 
-                environ.currentUser.userRole.addFile(f, accessType);
+                    environ.currentUser.userRole.addFile(f, accessType);
+                    initializeFilesLists();
+                }
+                else
+                    MessageBox.Show("הקובץ קיים כבר במערכת ", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                
             }
+        }
+
+        private void initializeFilesLists()
+        {
+            IEnumerable<File> userFiles = Models.Environment.filesList.Where(fi => fi.creator == environ.currentUser);
+            Utils.InitializeListBox<File>(lstBxFiles, "fileName", "fileName", userFiles.Where(fi => fi.fileType == FileType.Text).ToList());
+            Utils.InitializeListBox<File>(lstBxPics, "fileName", "fileName", userFiles.Where(fi => fi.fileType == FileType.Picture).ToList());
+            lstBxFiles.ClearSelected();
+            lstBxPics.ClearSelected();
         }
 
         private void lstBxFiles_SelectedIndexChanged(object sender, EventArgs e)
