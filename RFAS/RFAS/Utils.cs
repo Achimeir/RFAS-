@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -23,5 +24,14 @@ public static class Utils
         {
             o.SelectedIndex = -1;
         }
+    }
+
+    public static FileType getFileTypeAccordingToFile(string fileName)
+    {
+        // assuming txt/png is only available[?]
+        if (fileName.Contains(".txt"))
+            return FileType.Text;
+        else
+            return FileType.Picture;
     }
 }

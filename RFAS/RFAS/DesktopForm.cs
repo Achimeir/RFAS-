@@ -60,7 +60,7 @@ namespace RFAS
             User u = environ.currentUser;
             if (e.TabPageIndex > 0 && !(u is Admin))
             {
-                // to do: make a list for each user type & check access.
+                // todo: make a list for each user type & check access.
                 if (e.TabPage == userTab)
                 {
                     e.Cancel = true;
@@ -111,7 +111,24 @@ namespace RFAS
 
         private void btnAddFile_Click(object sender, EventArgs e)
         {
-            // TODO
+            // TODO: add also PNG/JPG to filter on file_dialog.
+            if (FileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // TODO: fix parameters.
+                // TODO: check permissions to do this thing.
+                File f = new File(FileDialog.SafeFileName, FileDialog.FileName, 
+                    Utils.getFileTypeAccordingToFile(FileDialog.SafeFileName), 
+                    false, null, environ.currentUser);
+
+
+                Random r = new Random();
+                Models.Environment.filesList.Add(f);
+                AccessType accessType = (AccessType)r.Next(0, 8);
+
+                environ.currentUser.userRole.addFile(f, accessType);
+
+                
+            }
         }
 
         private void lstBxFiles_SelectedIndexChanged(object sender, EventArgs e)

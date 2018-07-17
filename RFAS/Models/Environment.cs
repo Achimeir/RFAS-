@@ -37,6 +37,7 @@ namespace Models
                                            new RegularUser ("Rani","12345",null),
                                            new GuestUser ("Guest","1234",null)};
 
+            // TODO: this should be empty, initialization should not be here.
             filesList = new List<File>() { new File("file1", "c:/temp", FileType.Text, false, null, usersList[1]),
              new File("file2", "c:/temp", FileType.Text, false, null, usersList[1]),
              new File("file3", "c:/temp", FileType.Picture, false, null, usersList[1]),

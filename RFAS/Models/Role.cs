@@ -8,36 +8,29 @@ namespace Models
 {
     public class Role
     {
-        public Role(string roleName, Dictionary<File, AccessType> files_dict)
+        public Role(string roleName)
         {
             this.roleName = roleName;
-            this.filesDict = files_dict;
-            if (this.filesDict == null)
-                this.filesDict = new Dictionary<File, AccessType>();
+            this.filesDict = new Dictionary<File, AccessType>();
         }
 
         public string roleName { get; set; }
         
         public Dictionary<File, AccessType> filesDict { get; set; }
-
-        public void changeRoleAccessType (AccessType newRoleAccessType)
+        
+        public void addFile (File file, AccessType fileAccessType)
         {
-
+            filesDict.Add(file, fileAccessType);
         }
 
-        public void addFile (File fileName)
+        public void discardFile(File file)
         {
-
-        }
-
-        public void discardFile(File fileName)
-        {
-
+            filesDict.Remove(file);
         }
 
         public void updateRole (Role newRole)
         {
-
+            // TODO: what?
         }
 
 

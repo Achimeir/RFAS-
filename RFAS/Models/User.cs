@@ -11,12 +11,13 @@ namespace Models
 
     public class User
     {
-        public User(string userName, string userPass, Role userRole, Classification classification=Classification.None)
+        public User(string userName, string userPass, string RoleName, Classification classification=Classification.None)
         {
             this.userName = userName;
             this.userPass = userPass;
             this.classification = classification;
             this.userRole = userRole;
+            this.userRole = new Role(RoleName);
         }
 
 
@@ -34,14 +35,14 @@ namespace Models
 
     class GuestUser : User
     {
-        public GuestUser(string userName, string userPass, Role userRole, Classification classification = Classification.None) : base(userName, userPass, userRole, classification)
+        public GuestUser(string userName, string userPass, string RoleName, Classification classification = Classification.None) : base(userName, userPass, RoleName, classification)
         {
         }
     }
 
     public class RegularUser : User
     {
-        public RegularUser(string userName, string userPass, Role userRole, Classification classification = Classification.None, string userHashKey = null) : base(userName, userPass, userRole, classification)
+        public RegularUser(string userName, string userPass, string RoleName, Classification classification = Classification.None, string userHashKey = null) : base(userName, userPass, RoleName, classification)
         {
             this.userHashKey = userHashKey;
         }
@@ -82,13 +83,16 @@ namespace Models
 
         public virtual File deHashFile(File fileName)
         {
-            return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, null)));
+            // TODO
+            return null;
+            //return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, null)));
         }
     }
 
     public class Admin : RegularUser
     {
-        public Admin(string userName, string userPass, Role userRole, Classification classification = Classification.None, string userHashKey = null) : base(userName, userPass, userRole, classification, userHashKey)
+        public Admin(string userName, string userPass, string RoleName, Classification classification = Classification.None, string userHashKey = null) :
+            base(userName, userPass, RoleName, classification, userHashKey)
         {
         }
 
@@ -104,12 +108,16 @@ namespace Models
 
         public File hashFile(File fileName, User userName)
         {
-            return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, null)));
+            // TODO: replace.
+            return null;
+            //return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, null)));
         }
 
         public User createUser (string userName, string userPass, UserType type)
         {
-            return new User(null, null, new Role(null, null));
+            // TODO: replace.
+            return null;
+            //return new User(null, null, new Role(null, null));
         }
 
         public void deleteUser (User userName)

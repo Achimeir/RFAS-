@@ -49,6 +49,7 @@ namespace RFAS
             this.desktopTab = new System.Windows.Forms.TabPage();
             this.loginButton = new System.Windows.Forms.Button();
             this.welcomLabel = new System.Windows.Forms.Label();
+            this.FileDialog = new System.Windows.Forms.OpenFileDialog();
             this.tabControl.SuspendLayout();
             this.filesTab.SuspendLayout();
             this.userTab.SuspendLayout();
@@ -311,6 +312,12 @@ namespace RFAS
             this.welcomLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.welcomLabel.Click += new System.EventHandler(this.welcomLabel_Click_2);
             // 
+            // FileDialog
+            // 
+            this.FileDialog.FileName = "openFileDialog1";
+            this.FileDialog.Filter = "txt files (*.txt)|";
+            this.FileDialog.InitialDirectory = "c:\\";
+            // 
             // DesktopForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -353,5 +360,6 @@ namespace RFAS
         private System.Windows.Forms.ListBox lstBxFiles;
         private System.Windows.Forms.Button btnDeleteFiles;
         private System.Windows.Forms.Button btnAddFile;
+        private System.Windows.Forms.OpenFileDialog FileDialog;
     }
 }
