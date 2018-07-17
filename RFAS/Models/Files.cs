@@ -42,12 +42,12 @@ namespace Models
 
         public File Encrypt (string userHashKey)
         {
-            return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, AccessType.None, null)));
+            return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, null)));
         }
 
         public File Decrypt (string userHashKey)
         {
-            return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, AccessType.None, null)));
+            return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, null)));
         }
 
 

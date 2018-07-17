@@ -82,7 +82,7 @@ namespace Models
 
         public virtual File deHashFile(File fileName)
         {
-            return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, AccessType.None, null)));
+            return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, null)));
         }
     }
 
@@ -104,12 +104,12 @@ namespace Models
 
         public File hashFile(File fileName, User userName)
         {
-            return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, AccessType.None, null)));
+            return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, null)));
         }
 
         public User createUser (string userName, string userPass, UserType type)
         {
-            return new User(null, null, new Role(null, AccessType.None, null));
+            return new User(null, null, new Role(null, null));
         }
 
         public void deleteUser (User userName)

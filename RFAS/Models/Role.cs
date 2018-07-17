@@ -8,16 +8,17 @@ namespace Models
 {
     public class Role
     {
-        public Role(string roleName, AccessType roleAccessType, List<File> roleFilesList)
+        public Role(string roleName, Dictionary<File, AccessType> files_dict)
         {
             this.roleName = roleName;
-            this.roleAccessType = roleAccessType;
-            this.roleFilesList = roleFilesList;
+            this.filesDict = files_dict;
+            if (this.filesDict == null)
+                this.filesDict = new Dictionary<File, AccessType>();
         }
 
         public string roleName { get; set; }
-        public AccessType roleAccessType { get; set; }
-        public List<File> roleFilesList { get; set; }
+        
+        public Dictionary<File, AccessType> filesDict { get; set; }
 
         public void changeRoleAccessType (AccessType newRoleAccessType)
         {
