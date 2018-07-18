@@ -20,12 +20,17 @@ namespace Models
         
         public void addFile (File file, AccessType fileAccessType)
         {
-            filesDict.Add(file, fileAccessType);
+            if (filesDict.ContainsKey(file))
+                filesDict[file] = fileAccessType;
+
+            else
+                filesDict.Add(file, fileAccessType);
         }
 
         public void discardFile(File file)
         {
-            filesDict.Remove(file);
+            if (filesDict.ContainsKey(file))
+                filesDict.Remove(file);
         }
 
         public void updateRole (Role newRole)
