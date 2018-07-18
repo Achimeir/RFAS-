@@ -13,6 +13,14 @@ public static class Utils
         listBox.DataSource = datasource;
     }
 
+    public static void InitializeComboBox<T>(ComboBox comboBox, string displayString, string valueString, List<T> datasource)
+    {
+        comboBox.DataSource = null;
+        comboBox.DisplayMember = displayString;
+        comboBox.ValueMember = valueString;
+        comboBox.DataSource = datasource;
+    }
+
     public static T ParseEnum<T>(string value)
     {
         return (T)Enum.Parse(typeof(T), value, true);

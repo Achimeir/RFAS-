@@ -18,14 +18,13 @@ namespace RFAS
         {
             InitializeComponent();
             environ = new Models.Environment(currentUser);
-            Utils.InitializeListBox<User>(lbUsers, "userName", "userName", Models.Environment.usersList);
-            lbUsers.ClearSelected();
-            initializeFilesLists();
+            //Utils.InitializeListBox<User>(lbUsers, "userName", "userName", Models.Environment.usersList);
+            listsInitializer();
         }
 
         private void DesktopForm_Load(object sender, EventArgs e)
         {
-            this.welcomLabel.Text = "ברוך הבא משתמש  " + environ.currentUser.userName;
+            this.welcomLabel.Text = "ברוך הבא " + environ.currentUser.userName;
         }
 
         private void welcomLabel_Click_2(object sender, EventArgs e)
@@ -75,7 +74,8 @@ namespace RFAS
             if (DialogResult.Yes == MessageBox.Show("אתה בטוח שאתה רוצה למחוק את המשתמש " + u.userName + " ?" , "מחיקה",  MessageBoxButtons.YesNo))
             {
                 Models.Environment.usersList.Remove(u);
-                Utils.InitializeListBox<Models.User>(lbUsers, "userName", "userName", Models.Environment.usersList);
+                listsInitializer();
+                //Utils.InitializeListBox<User>(lbUsers, "userName", "userName", Models.Environment.usersList);
             }
         }
 
@@ -83,7 +83,8 @@ namespace RFAS
         {
             NewUserForm NU = new NewUserForm();
             NU.ShowDialog();
-            Utils.InitializeListBox<Models.User>(lbUsers, "userName", "userName", Models.Environment.usersList);
+            listsInitializer();
+            //Utils.InitializeListBox<User>(lbUsers, "userName", "userName", Models.Environment.usersList);
         }
 
         private void btnDeleteFiles_Click(object sender, EventArgs e)
@@ -100,7 +101,7 @@ namespace RFAS
                     {
                         Models.Environment.filesList.Remove(v);
                         MessageBox.Show(" נמחק " + v.fileName+" הקובץ ", "מחיקה", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        initializeFilesLists();
+                        listsInitializer();
                     }
                     else
                         MessageBox.Show(" ולכן אתה לא יכול למחוק " + (environ.currentUser.userRole.filesDict[v])+ " ההרשאות שלך לקובץ הן ", "שגיאה",MessageBoxButtons.OK,MessageBoxIcon.Error);
@@ -127,7 +128,7 @@ namespace RFAS
                     AccessType accessType = (AccessType)r.Next(0, 8);
 
                     environ.currentUser.userRole.addFile(f, accessType);
-                    initializeFilesLists();
+                    listsInitializer();
                 }
                 else
                     MessageBox.Show("הקובץ קיים כבר במערכת ", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -135,13 +136,28 @@ namespace RFAS
             }
         }
 
-        private void initializeFilesLists()
+        private void listsInitializer()
         {
-            IEnumerable<File> userFiles = Models.Environment.filesList.Where(fi => fi.creator == environ.currentUser);
+
+            IEnumerable<File> userFiles = Models.Environment.filesList.Where(fi =>environ.currentUser.userRole.filesDict.ContainsKey(fi));
             Utils.InitializeListBox<File>(lstBxFiles, "fileName", "fileName", userFiles.Where(fi => fi.fileType == FileType.Text).ToList());
             Utils.InitializeListBox<File>(lstBxPics, "fileName", "fileName", userFiles.Where(fi => fi.fileType == FileType.Picture).ToList());
+            Utils.InitializeComboBox<File>(fileComboBox, "filename", "filename", Models.Environment.filesList);
+            Utils.InitializeComboBox<User>(userComboBox, "userName", "userName", Models.Environment.usersList);
+            Utils.InitializeComboBox<string>(accessComboBox, "accessName", "accessName", Enum.GetNames(typeof(AccessType)).ToList());
+            Utils.InitializeListBox<User>(lbUsers, "userName", "userName", Models.Environment.usersList);
+
+            canGranCheckBox.Checked = false;
+            canDenyCheckBox.Checked = false;
+            lbUsers.ClearSelected();
             lstBxFiles.ClearSelected();
             lstBxPics.ClearSelected();
+            accessComboBox.SelectedIndex = -1;
+            accessComboBox.Text="רשימת הרשאות";
+            fileComboBox.SelectedIndex = -1;
+            fileComboBox.Text="רשימת קבצים";
+            userComboBox.SelectedIndex = -1;
+            userComboBox.Text="רשימת משתמשים";
         }
 
         private void lstBxFiles_SelectedIndexChanged(object sender, EventArgs e)
@@ -156,16 +172,107 @@ namespace RFAS
 
         private void lstBxFiles_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            File selectedFile = (File)lstBxFiles.SelectedItem;
-            FileForm fileForm = new FileForm(selectedFile, environ.currentUser.userRole.filesDict[selectedFile]);
-            fileForm.Show();
+            if (lstBxFiles.SelectedIndex > -1)
+            {
+                File selectedFile = (File)lstBxFiles.SelectedItem;
+                FileForm fileForm = new FileForm(selectedFile, environ.currentUser.userRole.filesDict[selectedFile]);
+                fileForm.Show();
+            }
         }
 
         private void lstBxPics_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            File selectedFile = (File)lstBxPics.SelectedItem;
-            FileForm fileForm = new FileForm(selectedFile, environ.currentUser.userRole.filesDict[selectedFile]);
-            fileForm.Show();
+            if (lstBxPics.SelectedIndex > -1)
+            {
+                File selectedFile = (File)lstBxPics.SelectedItem;
+                FileForm fileForm = new FileForm(selectedFile, environ.currentUser.userRole.filesDict[selectedFile]);
+                fileForm.Show();
+            }
+        }
+
+        private void fileAccessButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("TODO: Show all file permission");
+        }
+
+        private void userAccessButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("TODO: show all user permission");
+        }
+
+        private void grantButton_Click(object sender, EventArgs e)
+        {
+            bool canGrant = (environ.currentUser is Admin)|| (environ.currentUser.userRole.filesDict.ContainsKey((File)fileComboBox.SelectedItem));
+            if (canGrant)
+            {
+                if ((environ.currentUser is Admin) || (environ.currentUser.userRole.filesDict[(File)fileComboBox.SelectedItem].ToString().Contains(accessComboBox.SelectedValue.ToString())))
+                {
+                    ((User)userComboBox.SelectedItem).userRole.addFile((File)fileComboBox.SelectedItem, (AccessType)accessComboBox.SelectedIndex);
+                    MessageBox.Show("premission " + (AccessType)accessComboBox.SelectedIndex + " granted for user " + ((User)userComboBox.SelectedItem).userName);
+
+                }
+            }
+            else
+                MessageBox.Show("you have no permission to grant this permission");
+
+            listsInitializer();
+        }
+
+        private void denyButton_Click(object sender, EventArgs e)
+        {
+            bool canDeny = (environ.currentUser is Admin) || (environ.currentUser.userRole.filesDict.ContainsKey((File)fileComboBox.SelectedItem));
+            if (canDeny)
+            {
+                //TODO: ניתן למחוק הרשאות רק לפי ביט can deny
+                if ((environ.currentUser is Admin) || (environ.currentUser.userRole.filesDict[(File)fileComboBox.SelectedItem].ToString().Contains(accessComboBox.SelectedValue.ToString())))
+                {
+                    ((User)userComboBox.SelectedItem).userRole.discardFile((File)fileComboBox.SelectedItem);
+                    MessageBox.Show("premission " + (AccessType)accessComboBox.SelectedIndex + " denyed for user " + ((User)userComboBox.SelectedItem).userName);
+                }
+            }
+            else
+                MessageBox.Show("you have no permission to grant this permission");
+
+            listsInitializer();
+        }
+
+        private void passTrackBar_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void newPassTextBox_TextChanged(object sender, EventArgs e)
+        {
+            int score = (int)((float)PasswordCheckerWrapper.getPasswordScore(newPassTextBox.Text)*2.5)%12;
+            passTrackBar.Value = score;
+            if (passTrackBar.Value<2)
+                passTrackBar.BackColor = System.Drawing.Color.Red;
+            else if (passTrackBar.Value < 4)
+                passTrackBar.BackColor = System.Drawing.Color.Orange;
+            else if (passTrackBar.Value < 6)
+                passTrackBar.BackColor = System.Drawing.Color.Yellow;
+            else if (passTrackBar.Value < 8)
+                passTrackBar.BackColor = System.Drawing.Color.GreenYellow;
+            else if (passTrackBar.Value < 10)
+                passTrackBar.BackColor = System.Drawing.Color.Green;
+            else if (passTrackBar.Value ==10)
+                passTrackBar.BackColor = System.Drawing.Color.Blue;
+        }
+
+        private void passTrackBar_BackColorChanged(object sender, EventArgs e)
+        {
+            label8.BackColor = passTrackBar.BackColor;
+            label9.BackColor = passTrackBar.BackColor;
+        }
+
+        private void changePassButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("TODO: change pass and hash key");
         }
     }
 }

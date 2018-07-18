@@ -82,6 +82,7 @@
             this.FilePictureBox.Location = new System.Drawing.Point(158, 90);
             this.FilePictureBox.Name = "FilePictureBox";
             this.FilePictureBox.Size = new System.Drawing.Size(463, 289);
+            this.FilePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.FilePictureBox.TabIndex = 4;
             this.FilePictureBox.TabStop = false;
             this.FilePictureBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.FilePictureBox_DragDrop);

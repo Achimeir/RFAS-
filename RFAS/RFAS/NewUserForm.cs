@@ -35,7 +35,14 @@ namespace RFAS
                     User u = UserFactory.createUser(UT, txtBxUser.Text, txtBxPsw.Text);
                     Models.Environment.usersList.Add(u);
                 }
+                MessageBox.Show(" נוצר בהצלחה "+ txtBxUser.Text+" המשתמש ","יצירת משתמש",MessageBoxButtons.OK);
             }
+            else
+                MessageBox.Show("יצירת המשתמש נכשלה","שגיאה",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            txtBxPsw.Text = string.Empty;
+            txtBxUser.Text = string.Empty;
+            ComboBxUserType.SelectedIndex = 0;
+
         }
 
         private void txtBxPsw_TextChanged(object sender, EventArgs e)

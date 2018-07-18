@@ -34,6 +34,18 @@ namespace RFAS
             this.envTab = new System.Windows.Forms.TabPage();
             this.passTab = new System.Windows.Forms.TabPage();
             this.permissionTab = new System.Windows.Forms.TabPage();
+            this.userAccessButton = new System.Windows.Forms.Button();
+            this.fileAccessButton = new System.Windows.Forms.Button();
+            this.denyButton = new System.Windows.Forms.Button();
+            this.grantButton = new System.Windows.Forms.Button();
+            this.canDenyCheckBox = new System.Windows.Forms.CheckBox();
+            this.canGranCheckBox = new System.Windows.Forms.CheckBox();
+            this.accessComboBox = new System.Windows.Forms.ComboBox();
+            this.userComboBox = new System.Windows.Forms.ComboBox();
+            this.fileComboBox = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.filesTab = new System.Windows.Forms.TabPage();
             this.btnAddFile = new System.Windows.Forms.Button();
             this.btnDeleteFiles = new System.Windows.Forms.Button();
@@ -50,10 +62,22 @@ namespace RFAS
             this.loginButton = new System.Windows.Forms.Button();
             this.welcomLabel = new System.Windows.Forms.Label();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.zeroPassUserComboBox = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.changePassButton = new System.Windows.Forms.Button();
+            this.newPassTextBox = new System.Windows.Forms.TextBox();
+            this.passTrackBar = new System.Windows.Forms.TrackBar();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.hashKeyTextBox = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
+            this.passTab.SuspendLayout();
+            this.permissionTab.SuspendLayout();
             this.filesTab.SuspendLayout();
             this.userTab.SuspendLayout();
             this.desktopTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.passTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -93,6 +117,15 @@ namespace RFAS
             // 
             this.passTab.BackColor = System.Drawing.Color.Transparent;
             this.passTab.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.passTab.Controls.Add(this.hashKeyTextBox);
+            this.passTab.Controls.Add(this.label10);
+            this.passTab.Controls.Add(this.label9);
+            this.passTab.Controls.Add(this.label8);
+            this.passTab.Controls.Add(this.passTrackBar);
+            this.passTab.Controls.Add(this.newPassTextBox);
+            this.passTab.Controls.Add(this.changePassButton);
+            this.passTab.Controls.Add(this.zeroPassUserComboBox);
+            this.passTab.Controls.Add(this.label6);
             this.passTab.Location = new System.Drawing.Point(4, 40);
             this.passTab.Margin = new System.Windows.Forms.Padding(0);
             this.passTab.Name = "passTab";
@@ -106,6 +139,18 @@ namespace RFAS
             // 
             this.permissionTab.BackColor = System.Drawing.Color.Transparent;
             this.permissionTab.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.permissionTab.Controls.Add(this.userAccessButton);
+            this.permissionTab.Controls.Add(this.fileAccessButton);
+            this.permissionTab.Controls.Add(this.denyButton);
+            this.permissionTab.Controls.Add(this.grantButton);
+            this.permissionTab.Controls.Add(this.canDenyCheckBox);
+            this.permissionTab.Controls.Add(this.canGranCheckBox);
+            this.permissionTab.Controls.Add(this.accessComboBox);
+            this.permissionTab.Controls.Add(this.userComboBox);
+            this.permissionTab.Controls.Add(this.fileComboBox);
+            this.permissionTab.Controls.Add(this.label5);
+            this.permissionTab.Controls.Add(this.label2);
+            this.permissionTab.Controls.Add(this.label1);
             this.permissionTab.Location = new System.Drawing.Point(4, 40);
             this.permissionTab.Margin = new System.Windows.Forms.Padding(0);
             this.permissionTab.Name = "permissionTab";
@@ -114,6 +159,140 @@ namespace RFAS
             this.permissionTab.TabIndex = 2;
             this.permissionTab.Text = "  הרשאות  ";
             this.permissionTab.UseVisualStyleBackColor = true;
+            // 
+            // userAccessButton
+            // 
+            this.userAccessButton.AutoEllipsis = true;
+            this.userAccessButton.BackColor = System.Drawing.Color.Transparent;
+            this.userAccessButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("userAccessButton.BackgroundImage")));
+            this.userAccessButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.userAccessButton.FlatAppearance.BorderSize = 0;
+            this.userAccessButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.userAccessButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.userAccessButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.userAccessButton.ForeColor = System.Drawing.Color.Transparent;
+            this.userAccessButton.Location = new System.Drawing.Point(292, 132);
+            this.userAccessButton.Name = "userAccessButton";
+            this.userAccessButton.Size = new System.Drawing.Size(45, 39);
+            this.userAccessButton.TabIndex = 13;
+            this.userAccessButton.UseVisualStyleBackColor = true;
+            this.userAccessButton.Click += new System.EventHandler(this.userAccessButton_Click);
+            // 
+            // fileAccessButton
+            // 
+            this.fileAccessButton.AutoEllipsis = true;
+            this.fileAccessButton.BackColor = System.Drawing.Color.Transparent;
+            this.fileAccessButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("fileAccessButton.BackgroundImage")));
+            this.fileAccessButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.fileAccessButton.FlatAppearance.BorderSize = 0;
+            this.fileAccessButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.fileAccessButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.fileAccessButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.fileAccessButton.ForeColor = System.Drawing.Color.Transparent;
+            this.fileAccessButton.Location = new System.Drawing.Point(292, 48);
+            this.fileAccessButton.Name = "fileAccessButton";
+            this.fileAccessButton.Size = new System.Drawing.Size(45, 39);
+            this.fileAccessButton.TabIndex = 12;
+            this.fileAccessButton.UseVisualStyleBackColor = true;
+            this.fileAccessButton.Click += new System.EventHandler(this.fileAccessButton_Click);
+            // 
+            // denyButton
+            // 
+            this.denyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.denyButton.Location = new System.Drawing.Point(49, 246);
+            this.denyButton.Name = "denyButton";
+            this.denyButton.Size = new System.Drawing.Size(148, 82);
+            this.denyButton.TabIndex = 11;
+            this.denyButton.Text = "הסר הרשאה נבחרת";
+            this.denyButton.UseVisualStyleBackColor = true;
+            this.denyButton.Click += new System.EventHandler(this.denyButton_Click);
+            // 
+            // grantButton
+            // 
+            this.grantButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.grantButton.Location = new System.Drawing.Point(49, 48);
+            this.grantButton.Name = "grantButton";
+            this.grantButton.Size = new System.Drawing.Size(148, 82);
+            this.grantButton.TabIndex = 10;
+            this.grantButton.Text = "הענק הרשאה נבחרת";
+            this.grantButton.UseVisualStyleBackColor = true;
+            this.grantButton.Click += new System.EventHandler(this.grantButton_Click);
+            // 
+            // canDenyCheckBox
+            // 
+            this.canDenyCheckBox.AutoSize = true;
+            this.canDenyCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.canDenyCheckBox.Location = new System.Drawing.Point(354, 300);
+            this.canDenyCheckBox.Name = "canDenyCheckBox";
+            this.canDenyCheckBox.Size = new System.Drawing.Size(166, 28);
+            this.canDenyCheckBox.TabIndex = 9;
+            this.canDenyCheckBox.Text = "יכול לבטל הרשאה";
+            this.canDenyCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // canGranCheckBox
+            // 
+            this.canGranCheckBox.AutoSize = true;
+            this.canGranCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.canGranCheckBox.Location = new System.Drawing.Point(575, 300);
+            this.canGranCheckBox.Name = "canGranCheckBox";
+            this.canGranCheckBox.Size = new System.Drawing.Size(184, 28);
+            this.canGranCheckBox.TabIndex = 8;
+            this.canGranCheckBox.Text = "יכול להעניק הרשאה";
+            this.canGranCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // accessComboBox
+            // 
+            this.accessComboBox.FormattingEnabled = true;
+            this.accessComboBox.Location = new System.Drawing.Point(354, 213);
+            this.accessComboBox.Name = "accessComboBox";
+            this.accessComboBox.Size = new System.Drawing.Size(219, 39);
+            this.accessComboBox.TabIndex = 5;
+            this.accessComboBox.Text = "רשימת הרשאות";
+            // 
+            // userComboBox
+            // 
+            this.userComboBox.FormattingEnabled = true;
+            this.userComboBox.Location = new System.Drawing.Point(354, 132);
+            this.userComboBox.Name = "userComboBox";
+            this.userComboBox.Size = new System.Drawing.Size(219, 39);
+            this.userComboBox.TabIndex = 4;
+            this.userComboBox.Text = "רשימת משתמשים";
+            // 
+            // fileComboBox
+            // 
+            this.fileComboBox.FormattingEnabled = true;
+            this.fileComboBox.Location = new System.Drawing.Point(354, 48);
+            this.fileComboBox.Name = "fileComboBox";
+            this.fileComboBox.Size = new System.Drawing.Size(219, 39);
+            this.fileComboBox.TabIndex = 3;
+            this.fileComboBox.Text = "רשימת קבצים";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(611, 213);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(154, 31);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "בחר הרשאה:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(607, 132);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(158, 31);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "בחר משתמש:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(638, 48);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(127, 31);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "בחר קובץ:";
             // 
             // filesTab
             // 
@@ -271,6 +450,7 @@ namespace RFAS
             // desktopTab
             // 
             this.desktopTab.BackColor = System.Drawing.Color.Transparent;
+            this.desktopTab.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("desktopTab.BackgroundImage")));
             this.desktopTab.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.desktopTab.Controls.Add(this.loginButton);
             this.desktopTab.Controls.Add(this.welcomLabel);
@@ -305,12 +485,13 @@ namespace RFAS
             // welcomLabel
             // 
             this.welcomLabel.AutoSize = true;
-            this.welcomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.welcomLabel.Location = new System.Drawing.Point(298, 7);
+            this.welcomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.welcomLabel.ForeColor = System.Drawing.Color.Red;
+            this.welcomLabel.Location = new System.Drawing.Point(266, 179);
             this.welcomLabel.Name = "welcomLabel";
-            this.welcomLabel.Size = new System.Drawing.Size(165, 24);
+            this.welcomLabel.Size = new System.Drawing.Size(203, 46);
             this.welcomLabel.TabIndex = 0;
-            this.welcomLabel.Text = "ברוך הבא משתמש X";
+            this.welcomLabel.Text = " ברוך הבא ";
             this.welcomLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.welcomLabel.Click += new System.EventHandler(this.welcomLabel_Click_2);
             // 
@@ -319,6 +500,94 @@ namespace RFAS
             this.FileDialog.FileName = "openFileDialog1";
             this.FileDialog.Filter = "txt files (*.txt)|";
             this.FileDialog.InitialDirectory = "c:\\";
+            // 
+            // zeroPassUserComboBox
+            // 
+            this.zeroPassUserComboBox.FormattingEnabled = true;
+            this.zeroPassUserComboBox.Location = new System.Drawing.Point(344, 90);
+            this.zeroPassUserComboBox.Name = "zeroPassUserComboBox";
+            this.zeroPassUserComboBox.Size = new System.Drawing.Size(219, 39);
+            this.zeroPassUserComboBox.TabIndex = 6;
+            this.zeroPassUserComboBox.Text = "בחר משתמש";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(583, 23);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(167, 31);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "איפוס סיסמא:";
+            // 
+            // changePassButton
+            // 
+            this.changePassButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.changePassButton.Location = new System.Drawing.Point(42, 178);
+            this.changePassButton.Name = "changePassButton";
+            this.changePassButton.Size = new System.Drawing.Size(121, 56);
+            this.changePassButton.TabIndex = 10;
+            this.changePassButton.Text = "החלף";
+            this.changePassButton.UseVisualStyleBackColor = true;
+            this.changePassButton.Click += new System.EventHandler(this.changePassButton_Click);
+            // 
+            // newPassTextBox
+            // 
+            this.newPassTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.newPassTextBox.Location = new System.Drawing.Point(344, 163);
+            this.newPassTextBox.Name = "newPassTextBox";
+            this.newPassTextBox.Size = new System.Drawing.Size(218, 31);
+            this.newPassTextBox.TabIndex = 11;
+            this.newPassTextBox.Text = "בחר סיסמא חדשה";
+            this.newPassTextBox.TextChanged += new System.EventHandler(this.newPassTextBox_TextChanged);
+            // 
+            // passTrackBar
+            // 
+            this.passTrackBar.Location = new System.Drawing.Point(343, 200);
+            this.passTrackBar.Name = "passTrackBar";
+            this.passTrackBar.Size = new System.Drawing.Size(219, 45);
+            this.passTrackBar.TabIndex = 12;
+            this.passTrackBar.Scroll += new System.EventHandler(this.passTrackBar_Scroll);
+            this.passTrackBar.BackColorChanged += new System.EventHandler(this.passTrackBar_BackColorChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.SystemColors.Control;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label8.Location = new System.Drawing.Point(526, 227);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(36, 18);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "חלש";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.SystemColors.Control;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label9.Location = new System.Drawing.Point(343, 227);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(30, 18);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "חזק";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(587, 289);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(163, 31);
+            this.label10.TabIndex = 15;
+            this.label10.Text = "מפתח הצפנה:";
+            // 
+            // hashKeyTextBox
+            // 
+            this.hashKeyTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.hashKeyTextBox.Location = new System.Drawing.Point(343, 343);
+            this.hashKeyTextBox.Name = "hashKeyTextBox";
+            this.hashKeyTextBox.Size = new System.Drawing.Size(218, 31);
+            this.hashKeyTextBox.TabIndex = 16;
+            this.hashKeyTextBox.Text = "XXXXXXXXXXXXXXXX";
             // 
             // DesktopForm
             // 
@@ -332,12 +601,17 @@ namespace RFAS
             this.Text = "DesktopForm";
             this.Load += new System.EventHandler(this.DesktopForm_Load);
             this.tabControl.ResumeLayout(false);
+            this.passTab.ResumeLayout(false);
+            this.passTab.PerformLayout();
+            this.permissionTab.ResumeLayout(false);
+            this.permissionTab.PerformLayout();
             this.filesTab.ResumeLayout(false);
             this.filesTab.PerformLayout();
             this.userTab.ResumeLayout(false);
             this.userTab.PerformLayout();
             this.desktopTab.ResumeLayout(false);
             this.desktopTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.passTrackBar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -363,5 +637,26 @@ namespace RFAS
         private System.Windows.Forms.Button btnDeleteFiles;
         private System.Windows.Forms.Button btnAddFile;
         private System.Windows.Forms.OpenFileDialog FileDialog;
+        private System.Windows.Forms.ComboBox accessComboBox;
+        private System.Windows.Forms.ComboBox userComboBox;
+        private System.Windows.Forms.ComboBox fileComboBox;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox canDenyCheckBox;
+        private System.Windows.Forms.CheckBox canGranCheckBox;
+        private System.Windows.Forms.Button fileAccessButton;
+        private System.Windows.Forms.Button denyButton;
+        private System.Windows.Forms.Button grantButton;
+        private System.Windows.Forms.Button userAccessButton;
+        private System.Windows.Forms.TrackBar passTrackBar;
+        private System.Windows.Forms.TextBox newPassTextBox;
+        private System.Windows.Forms.Button changePassButton;
+        private System.Windows.Forms.ComboBox zeroPassUserComboBox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox hashKeyTextBox;
     }
 }

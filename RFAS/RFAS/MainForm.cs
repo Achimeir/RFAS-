@@ -36,9 +36,10 @@ namespace RFAS
                     MessageBox.Show("Welcome user " + UserNameTextBox.Text, "Login successfully", MessageBoxButtons.OK, MessageBoxIcon.None);
                     // assuming there can only be one result.
                     desktopForm = new DesktopForm(users.First());
+                    desktopForm.Text = UserNameTextBox.Text + " המחשב של";
                     UserNameTextBox.Text = "user name";
                     passTextBox.Text = "Password";
-                    desktopForm.ShowDialog();
+                    desktopForm.Show();
                 }
 
                 else
@@ -48,5 +49,9 @@ namespace RFAS
                 MessageBox.Show("Please enter valid user name and password", "Login Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
         }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -129,7 +129,7 @@
             this.Controls.Add(this.lblUserName);
             this.Name = "NewUserForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "NewUserForm";
+            this.Text = "יצירת משתמש";
             this.ResumeLayout(false);
             this.PerformLayout();
 

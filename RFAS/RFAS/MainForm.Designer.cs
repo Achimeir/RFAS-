@@ -131,6 +131,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RFAS";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.LoginPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
