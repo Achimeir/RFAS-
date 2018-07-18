@@ -178,6 +178,7 @@ namespace RFAS
             this.lstBxPics.TabIndex = 9;
             this.lstBxPics.ValueMember = "userName";
             this.lstBxPics.SelectedIndexChanged += new System.EventHandler(this.lstBxPics_SelectedIndexChanged);
+            this.lstBxPics.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstBxPics_MouseDoubleClick);
             // 
             // lblFiles
             // 
@@ -203,6 +204,7 @@ namespace RFAS
             this.lstBxFiles.TabIndex = 7;
             this.lstBxFiles.ValueMember = "userName";
             this.lstBxFiles.SelectedIndexChanged += new System.EventHandler(this.lstBxFiles_SelectedIndexChanged);
+            this.lstBxFiles.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstBxFiles_MouseDoubleClick);
             // 
             // userTab
             // 

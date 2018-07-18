@@ -154,7 +154,19 @@ namespace RFAS
             Utils.HandleOnlyOnceSelectedItemWithinListBox(lstBxPics, lstBxFiles);
         }
 
-        
+        private void lstBxFiles_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            File selectedFile = (File)lstBxFiles.SelectedItem;
+            FileForm fileForm = new FileForm(selectedFile, environ.currentUser.userRole.filesDict[selectedFile]);
+            fileForm.Show();
+        }
+
+        private void lstBxPics_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            File selectedFile = (File)lstBxPics.SelectedItem;
+            FileForm fileForm = new FileForm(selectedFile, environ.currentUser.userRole.filesDict[selectedFile]);
+            fileForm.Show();
+        }
     }
 }
  
