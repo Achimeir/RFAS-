@@ -71,7 +71,7 @@ namespace RFAS
                 return;
             }
 
-            if (DialogResult.Yes == MessageBox.Show("אתה בטוח שאתה רוצה למחוק את המשתמש " + u.userName + " ?" , "מחיקה",  MessageBoxButtons.YesNo))
+            if (DialogResult.Yes == MessageBox.Show("? " + u.userName + " אתה בטוח שאתה רוצה למחוק את המשתמש", "מחיקה",  MessageBoxButtons.YesNo))
             {
                 Models.Environment.usersList.Remove(u);
                 listsInitializer();
@@ -94,7 +94,7 @@ namespace RFAS
             if (listBoxWithSelectedItem.SelectedItem != null)
             {
                 File v = (File)listBoxWithSelectedItem.SelectedItem;
-                if (DialogResult.Yes == MessageBox.Show("אתה בטוח שאתה רוצה למחוק את הקובץ הזה " + v.fileName + " ?", "מחיקה", MessageBoxButtons.YesNo))
+                if (DialogResult.Yes == MessageBox.Show("? " + v.fileName + " אתה בטוח שאתה רוצה למחוק את הקובץ הזה", "מחיקה", MessageBoxButtons.YesNo))
                 {
                     int userAccessPremission = (int)(environ.currentUser.userRole.filesDict[v]);
                     if (userAccessPremission == 3 || userAccessPremission >= 5)
@@ -147,6 +147,11 @@ namespace RFAS
             Utils.InitializeComboBox<string>(accessComboBox, "accessName", "accessName", Enum.GetNames(typeof(AccessType)).ToList());
             Utils.InitializeListBox<User>(lbUsers, "userName", "userName", Models.Environment.usersList);
 
+            if (environ.currentUser is Admin)
+                Utils.InitializeComboBox<User>(zeroPassUserComboBox, "userName", "userName", Models.Environment.usersList);
+            else
+                Utils.InitializeComboBox<User>(zeroPassUserComboBox, "userName", "userName", new List<User>() { environ.currentUser });
+
             canGranCheckBox.Checked = false;
             canDenyCheckBox.Checked = false;
             lbUsers.ClearSelected();
@@ -175,7 +180,7 @@ namespace RFAS
             if (lstBxFiles.SelectedIndex > -1)
             {
                 File selectedFile = (File)lstBxFiles.SelectedItem;
-                FileForm fileForm = new FileForm(selectedFile, environ.currentUser.userRole.filesDict[selectedFile]);
+                FileForm fileForm = new FileForm(selectedFile, environ.currentUser.userRole.filesDict[selectedFile], environ.currentUser.userRole.grantDenyDict[selectedFile]);
                 fileForm.Show();
             }
         }
@@ -185,53 +190,92 @@ namespace RFAS
             if (lstBxPics.SelectedIndex > -1)
             {
                 File selectedFile = (File)lstBxPics.SelectedItem;
-                FileForm fileForm = new FileForm(selectedFile, environ.currentUser.userRole.filesDict[selectedFile]);
+                FileForm fileForm = new FileForm(selectedFile, environ.currentUser.userRole.filesDict[selectedFile], environ.currentUser.userRole.grantDenyDict[selectedFile]);
                 fileForm.Show();
             }
         }
 
         private void fileAccessButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("TODO: Show all file permission");
+            if (fileComboBox.SelectedIndex < 0)
+                return;
+            AccessDetailsForm accessDetailsForm = new AccessDetailsForm((File)fileComboBox.SelectedItem, PurposeType.ACL);
+            accessDetailsForm.Show();
+            //MessageBox.Show("TODO: Show all file permission");
         }
 
         private void userAccessButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("TODO: show all user permission");
+            if (userComboBox.SelectedIndex < 0)
+                return;
+            AccessDetailsForm accessDetailsForm = new AccessDetailsForm((User)userComboBox.SelectedItem, PurposeType.CList);
+            accessDetailsForm.Show();
+            //MessageBox.Show("TODO: show all user permission");
         }
 
         private void grantButton_Click(object sender, EventArgs e)
         {
-            bool canGrant = (environ.currentUser is Admin)|| (environ.currentUser.userRole.filesDict.ContainsKey((File)fileComboBox.SelectedItem));
-            if (canGrant)
+            foreach (ComboBox item in ((Button)sender).Parent.Controls.OfType<ComboBox>())
             {
-                if ((environ.currentUser is Admin) || (environ.currentUser.userRole.filesDict[(File)fileComboBox.SelectedItem].ToString().Contains(accessComboBox.SelectedValue.ToString())))
-                {
-                    ((User)userComboBox.SelectedItem).userRole.addFile((File)fileComboBox.SelectedItem, (AccessType)accessComboBox.SelectedIndex);
-                    MessageBox.Show("premission " + (AccessType)accessComboBox.SelectedIndex + " granted for user " + ((User)userComboBox.SelectedItem).userName);
+                if (item.SelectedIndex < 0)
+                    return;
+            }
 
+            bool legalUser = (environ.currentUser is Admin)|| (environ.currentUser.userRole.grantDenyDict.ContainsKey((File)fileComboBox.SelectedItem));
+
+            if (legalUser)
+            {
+                bool canGrant = (environ.currentUser.userRole.grantDenyDict[(File)fileComboBox.SelectedItem]>=GrantDenyType.Grant);
+                bool havePrem = (environ.currentUser.userRole.filesDict[(File)fileComboBox.SelectedItem].ToString().Contains(accessComboBox.SelectedValue.ToString()));
+                if ((environ.currentUser is Admin) || (canGrant &&havePrem))
+                {                   
+                    int grantDenyValue = (canDenyCheckBox.Checked ? 1 : 0) + (canGranCheckBox.Checked ? 2 : 0);
+                    ((User)userComboBox.SelectedItem).userRole.addFile((File)fileComboBox.SelectedItem, (AccessType)accessComboBox.SelectedIndex,(GrantDenyType)grantDenyValue);
+                    MessageBox.Show(((User)userComboBox.SelectedItem).userName+ " למשתמש " + (AccessType)accessComboBox.SelectedIndex + " נתת הרשאת ");
                 }
+                else
+                    MessageBox.Show(((File)fileComboBox.SelectedItem).fileName + " לקובץ " + (AccessType)accessComboBox.SelectedIndex+" אתה לא רשאי לתת הרשאה מסוג");
+
             }
             else
-                MessageBox.Show("you have no permission to grant this permission");
+                MessageBox.Show(((File)fileComboBox.SelectedItem).fileName + " לא קיימות הרשאות עבור הקובץ");
 
             listsInitializer();
         }
 
         private void denyButton_Click(object sender, EventArgs e)
         {
-            bool canDeny = (environ.currentUser is Admin) || (environ.currentUser.userRole.filesDict.ContainsKey((File)fileComboBox.SelectedItem));
-            if (canDeny)
+            foreach (ComboBox item in ((Button)sender).Parent.Controls.OfType<ComboBox>())
             {
-                //TODO: ניתן למחוק הרשאות רק לפי ביט can deny
-                if ((environ.currentUser is Admin) || (environ.currentUser.userRole.filesDict[(File)fileComboBox.SelectedItem].ToString().Contains(accessComboBox.SelectedValue.ToString())))
+                if (item.SelectedIndex < 0)
+                    return;
+            }
+
+            bool legalUser = (environ.currentUser is Admin) || (environ.currentUser.userRole.grantDenyDict.ContainsKey((File)fileComboBox.SelectedItem));
+
+            if (legalUser)
+            {
+
+                bool canDeny= new List<GrantDenyType>() { GrantDenyType.Deny, GrantDenyType.GrantDeny }.Exists(item => item == environ.currentUser.userRole.grantDenyDict[(File)fileComboBox.SelectedItem]);
+                bool havePrem = (environ.currentUser.userRole.filesDict[(File)fileComboBox.SelectedItem].ToString().Contains(accessComboBox.SelectedValue.ToString()));
+
+                if ((environ.currentUser is Admin) || (canDeny&&havePrem))
                 {
-                    ((User)userComboBox.SelectedItem).userRole.discardFile((File)fileComboBox.SelectedItem);
-                    MessageBox.Show("premission " + (AccessType)accessComboBox.SelectedIndex + " denyed for user " + ((User)userComboBox.SelectedItem).userName);
+                    if (((User)userComboBox.SelectedItem).userRole.filesDict.ContainsKey((File)fileComboBox.SelectedItem))
+                    {
+                        ((User)userComboBox.SelectedItem).userRole.discardAccess((File)fileComboBox.SelectedItem, (AccessType)accessComboBox.SelectedIndex);
+                        MessageBox.Show(((User)userComboBox.SelectedItem).userName + " למשתמש " + (AccessType)accessComboBox.SelectedIndex + " מחקת הרשאת");
+                    }
+
+                    else
+                        MessageBox.Show(((File)fileComboBox.SelectedItem).fileName + " לקובץ "+(AccessType)accessComboBox.SelectedIndex +" אין הרשאת " +((User)userComboBox.SelectedItem).userName + " למשתמש");
                 }
+                else
+                    MessageBox.Show(((File)fileComboBox.SelectedItem).fileName + " לקובץ " + (AccessType)accessComboBox.SelectedIndex + " אתה לא רשאי למחוק הרשאה מסוג");
+
             }
             else
-                MessageBox.Show("you have no permission to grant this permission");
+                MessageBox.Show(((File)fileComboBox.SelectedItem).fileName+" לא קיימות הרשאות עבור הקובץ");
 
             listsInitializer();
         }
@@ -272,7 +316,35 @@ namespace RFAS
 
         private void changePassButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("TODO: change pass and hash key");
+            if (passTrackBar.Value <= 8)
+                MessageBox.Show("עליך לבחור סיסמא חזקה יותר");
+            else
+            {
+                ((User)zeroPassUserComboBox.SelectedItem).userPass = newPassTextBox.Text;
+                MessageBox.Show(newPassTextBox.Text + " הסיסמא החדשה היא ");
+                newPassTextBox.Text = "בחר סיסמא חדשה";
+                zeroPassUserComboBox.Refresh();
+                zeroPassUserComboBox.Text = "בחר משתמש";
+                passTrackBar.Value = 0;
+                passTrackBar.BackColor = SystemColors.Control;
+            }
+        }
+
+        private void passTab_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void changeHashButton_Click(object sender, EventArgs e)
+        {
+            if (environ.currentUser is RegularUser || environ.currentUser is Admin)
+            {
+                ((RegularUser)environ.currentUser).userHashKey = hashKeyTextBox.Text;
+                MessageBox.Show(hashKeyTextBox.Text + " מפתח ההצפנה החדש הוא ");
+                hashKeyTextBox.Text = "XXXXXXXXXXXXXXXXX";
+            }
+            else
+                MessageBox.Show("אורחים לא יכולים לשנות מפתחות הצפנה");
         }
     }
 }
