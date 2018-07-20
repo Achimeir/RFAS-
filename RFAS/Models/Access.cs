@@ -11,13 +11,20 @@ namespace Models
         None,
         R,
         W,
-        D,
         RW,
+        D,
         RD,
         WD,
         RWD       
     }
 
+    public enum GrantDenyType
+    {
+        None,
+        Deny,
+        Grant,
+        GrantDeny
+    }
     public enum Classification
     {
         TS,

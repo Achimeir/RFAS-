@@ -15,7 +15,7 @@ namespace RFAS
     {
         public Models.File currentFile;
         public Models.AccessType accessType;
-        public FileForm(Models.File file,Models.AccessType accessType)
+        public FileForm(Models.File file,Models.AccessType accessType,Models.GrantDenyType grantDeny)
         {
             InitializeComponent();
             this.currentFile = file;
@@ -23,6 +23,8 @@ namespace RFAS
             this.Text = file.fileName.Split('.')[0];
             this.fileNameTextBox.Text = file.fileName;
             this.fileAccessTextBox.Text = accessType.ToString();
+            this.grantCheckBoxView.Checked = (int)grantDeny >= 2;
+            this.DenyCheckBoxView.Checked = (int) grantDeny % 2 == 1;
             if (file.fileType == Models.FileType.Text)
                 initializeFile(accessType);
             else
@@ -32,13 +34,24 @@ namespace RFAS
         private void initializeFile(Models.AccessType accessType)
         {
             this.FileTextBox.Visible = true;
+
             if (accessType.ToString().Contains("R"))
+            {
+                if (currentFile.isEncrypted)
+                    this.FileTextBox.Font = new Font("Webdings", 20);
+                else
+                    this.FileTextBox.Font = SystemFonts.DefaultFont;
                 this.FileTextBox.Text = File.ReadAllText(currentFile.filePath);
+
+            }
+
             else
             {
+                this.FileTextBox.Font = SystemFonts.DefaultFont;
                 this.FileTextBox.Text = "אינך יכול לקרוא את הקובץ";
                 MessageBox.Show("אין לך הרשאות לקרוא את הקובץ");
             }
+
             if (!accessType.ToString().Contains("W"))
                 this.FileTextBox.Enabled = false;
         }
@@ -63,14 +76,14 @@ namespace RFAS
 
         private void encryptButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("TODO: encrypt");
+            currentFile.isEncrypted = true;
+            initializeFile(accessType);
         }
 
         private void decryptButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("TODO: decrypt");
-            File.Decrypt(currentFile.filePath);
-            this.FileTextBox.Text = File.ReadAllText(currentFile.filePath);
+            currentFile.isEncrypted = false;
+            initializeFile(accessType);
         }
 
         private void FileForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -78,6 +91,8 @@ namespace RFAS
             if (this.accessType.ToString().Contains("RW") && this.currentFile.fileType==Models.FileType.Text)
                 File.WriteAllText(currentFile.filePath, this.FileTextBox.Text);
 
+            else if (this.accessType.ToString().Contains("W") && this.currentFile.fileType == Models.FileType.Text)
+                File.AppendAllText(currentFile.filePath, this.FileTextBox.Text.Remove(this.FileTextBox.Text.IndexOf("אינך יכול לקרוא את הקובץ"), "אינך יכול לקרוא את הקובץ".Length));
         }
 
         private void FilePictureBox_DragDrop(object sender, DragEventArgs e)

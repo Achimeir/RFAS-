@@ -36,6 +36,8 @@
             this.FileTextBox = new System.Windows.Forms.TextBox();
             this.decryptButton = new System.Windows.Forms.Button();
             this.encryptButton = new System.Windows.Forms.Button();
+            this.grantCheckBoxView = new System.Windows.Forms.CheckBox();
+            this.DenyCheckBoxView = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.FilePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -43,7 +45,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label1.Location = new System.Drawing.Point(681, 40);
+            this.label1.Location = new System.Drawing.Point(681, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(94, 25);
             this.label1.TabIndex = 0;
@@ -53,7 +55,7 @@
             // 
             this.fileNameTextBox.Enabled = false;
             this.fileNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.fileNameTextBox.Location = new System.Drawing.Point(507, 37);
+            this.fileNameTextBox.Location = new System.Drawing.Point(507, 16);
             this.fileNameTextBox.Name = "fileNameTextBox";
             this.fileNameTextBox.Size = new System.Drawing.Size(168, 30);
             this.fileNameTextBox.TabIndex = 1;
@@ -62,16 +64,16 @@
             // 
             this.fileAccessTextBox.Enabled = false;
             this.fileAccessTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.fileAccessTextBox.Location = new System.Drawing.Point(56, 37);
+            this.fileAccessTextBox.Location = new System.Drawing.Point(57, 16);
             this.fileAccessTextBox.Name = "fileAccessTextBox";
-            this.fileAccessTextBox.Size = new System.Drawing.Size(168, 30);
+            this.fileAccessTextBox.Size = new System.Drawing.Size(178, 30);
             this.fileAccessTextBox.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.label2.Location = new System.Drawing.Point(230, 40);
+            this.label2.Location = new System.Drawing.Point(241, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 25);
             this.label2.TabIndex = 2;
@@ -79,7 +81,7 @@
             // 
             // FilePictureBox
             // 
-            this.FilePictureBox.Location = new System.Drawing.Point(158, 90);
+            this.FilePictureBox.Location = new System.Drawing.Point(158, 99);
             this.FilePictureBox.Name = "FilePictureBox";
             this.FilePictureBox.Size = new System.Drawing.Size(463, 289);
             this.FilePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -90,13 +92,13 @@
             // 
             // FileTextBox
             // 
-            this.FileTextBox.Location = new System.Drawing.Point(147, 90);
+            this.FileTextBox.Font = new System.Drawing.Font("Webdings", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.FileTextBox.Location = new System.Drawing.Point(147, 99);
             this.FileTextBox.Multiline = true;
             this.FileTextBox.Name = "FileTextBox";
             this.FileTextBox.Size = new System.Drawing.Size(463, 289);
             this.FileTextBox.TabIndex = 5;
-            this.FileTextBox.Text = "  \r\n  \r\n  \r\n  \r\n  \r\n  \r\n  \r\n  \r\n  \r\n  \r\n  \r\n  \r\n  \r\n  \r\n  \r\n  \r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r" +
-    "\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n";
+            this.FileTextBox.Text = "temp info";
             // 
             // decryptButton
             // 
@@ -118,11 +120,35 @@
             this.encryptButton.UseVisualStyleBackColor = true;
             this.encryptButton.Click += new System.EventHandler(this.encryptButton_Click);
             // 
+            // grantCheckBoxView
+            // 
+            this.grantCheckBoxView.AutoSize = true;
+            this.grantCheckBoxView.Enabled = false;
+            this.grantCheckBoxView.Location = new System.Drawing.Point(158, 52);
+            this.grantCheckBoxView.Name = "grantCheckBoxView";
+            this.grantCheckBoxView.Size = new System.Drawing.Size(74, 17);
+            this.grantCheckBoxView.TabIndex = 8;
+            this.grantCheckBoxView.Text = "יכול לתת";
+            this.grantCheckBoxView.UseVisualStyleBackColor = true;
+            // 
+            // DenyCheckBoxView
+            // 
+            this.DenyCheckBoxView.AutoSize = true;
+            this.DenyCheckBoxView.Enabled = false;
+            this.DenyCheckBoxView.Location = new System.Drawing.Point(70, 52);
+            this.DenyCheckBoxView.Name = "DenyCheckBoxView";
+            this.DenyCheckBoxView.Size = new System.Drawing.Size(84, 17);
+            this.DenyCheckBoxView.TabIndex = 9;
+            this.DenyCheckBoxView.Text = "יכול למנוע";
+            this.DenyCheckBoxView.UseVisualStyleBackColor = true;
+            // 
             // FileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.DenyCheckBoxView);
+            this.Controls.Add(this.grantCheckBoxView);
             this.Controls.Add(this.encryptButton);
             this.Controls.Add(this.decryptButton);
             this.Controls.Add(this.FileTextBox);
@@ -150,5 +176,7 @@
         private System.Windows.Forms.TextBox FileTextBox;
         private System.Windows.Forms.Button decryptButton;
         private System.Windows.Forms.Button encryptButton;
+        private System.Windows.Forms.CheckBox grantCheckBoxView;
+        private System.Windows.Forms.CheckBox DenyCheckBoxView;
     }
 }
