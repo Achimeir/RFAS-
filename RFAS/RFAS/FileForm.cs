@@ -36,9 +36,10 @@ namespace RFAS
         private void initializeFile(Models.AccessType accessType)
         {
             this.FileTextBox.Visible = true;
+            this.FileTextBox.Enabled = true;
 
             if (accessType.ToString().Contains("R"))
-            {
+            {             
                 this.FileTextBox.Font = SystemFonts.DefaultFont;
                 this.FileTextBox.Text = File.ReadAllText(currentFile.filePath);
             }
@@ -79,16 +80,27 @@ namespace RFAS
 
         private void encryptButton_Click(object sender, EventArgs e)
         {
-            currentFile.isEncrypted = true;
-            currentFile.Encrypt(currUser.userKeys.Item1, currUser.userKeys.Item2);
-            initializeFile(accessType);
+            if (!currentFile.isEncrypted)
+            {
+                currentFile.isEncrypted = true;
+                currentFile.Encrypt(currUser.userKeys.Item1, currUser.userKeys.Item2);              
+                initializeFile(accessType);
+            }
+            else
+                MessageBox.Show("הקובץ כבר מוצפן");
         }
 
         private void decryptButton_Click(object sender, EventArgs e)
         {
-            currentFile.isEncrypted = false;
-            currentFile.Decrypt(currUser.userKeys.Item1, currUser.userKeys.Item2);
-            initializeFile(accessType);
+            if (currentFile.isEncrypted)
+            {
+                currentFile.isEncrypted = false;
+                currentFile.Decrypt(currUser.userKeys.Item1, currUser.userKeys.Item2);
+                initializeFile(accessType);
+            }
+            else
+                MessageBox.Show("הקובץ איננו מוצפן, קריאה נעימה");
+
         }
 
         private void FileForm_FormClosing(object sender, FormClosingEventArgs e)
