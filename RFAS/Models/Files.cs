@@ -22,18 +22,17 @@ namespace Models
         public override void Decrypt(byte[] key, byte[] iv)
         {
             var input = System.IO.File.ReadAllText(this.filePath);
-            byte[] encryptedBytes = AESEncryptionWrapper.getInstance().EncryptStringToBytes(input, key, iv);
-            var cypherText = Convert.ToBase64String(encryptedBytes);
-            System.IO.File.WriteAllText(this.filePath, cypherText);
+            var inputInBytes = Convert.FromBase64String(input);
+            string descryptedtext = AESEncryptionWrapper.getInstance().DecryptStringFromBytes(inputInBytes, key, iv);
+            System.IO.File.WriteAllText(this.filePath, descryptedtext);
         }
 
         public override void Encrypt(byte[] key, byte[] iv)
         {
             var input = System.IO.File.ReadAllText(this.filePath);
-            var inputInBytes = Convert.FromBase64String(input);
-
-            string descryptedtext = AESEncryptionWrapper.getInstance().DecryptStringFromBytes(inputInBytes, key, iv);
-            System.IO.File.WriteAllText(this.filePath, descryptedtext);
+            byte[] encryptedBytes = AESEncryptionWrapper.getInstance().EncryptStringToBytes(input, key, iv);
+            var cypherText = Convert.ToBase64String(encryptedBytes);
+            System.IO.File.WriteAllText(this.filePath, cypherText);
         }
     }
 
@@ -60,7 +59,7 @@ namespace Models
 
         public override void Encrypt(byte[] key, byte[] iv)
         {
-            string temppic = Path.GetTempPath() + "\\temp" + Path.GetExtension(filePath);
+            string temppic = Path.GetTempPath() + "temp" + Path.GetExtension(filePath);
             Image imgInput = Image.FromFile(this.filePath);
             using (var ms = new MemoryStream())
             {
@@ -71,9 +70,14 @@ namespace Models
                 System.IO.File.WriteAllBytes(temppic, imageEncryptedBytes);
             }
 
-            // stupid bug...
-            System.IO.File.Delete(filePath);
+            // stupid bug...]
+
+
+            //System.IO.File.Replace(temppic, filePath,Path.GetTempPath() + "temp//backup");
+
             imgInput.Dispose();
+            System.IO.File.Delete(filePath);
+            
             System.IO.File.Copy(temppic, filePath);
         }
     }
