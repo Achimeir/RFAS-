@@ -2,7 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 
-namespace RFAS
+namespace Models
 {
     public class AESEncryptionWrapper
     {
@@ -27,7 +27,7 @@ namespace RFAS
             AES.GenerateKey();
             return new Tuple<byte[], byte[]>(AES.Key, AES.IV);
         }
-        static byte[] EncryptStringToBytes(string plainText, byte[] Key, byte[] IV)
+        public byte[] EncryptStringToBytes(string plainText, byte[] Key, byte[] IV)
         {
             // Check arguments. 
             if (plainText == null || plainText.Length <= 0)
@@ -37,16 +37,14 @@ namespace RFAS
             if (IV == null || IV.Length <= 0)
                 throw new ArgumentNullException("IV");
             byte[] encrypted;
-            // Create an RijndaelManaged object 
-            // with the specified key and IV. 
+
             using (RijndaelManaged rijAlg = new RijndaelManaged())
             {
                 rijAlg.Key = Key;
                 rijAlg.IV = IV;
                 
                 ICryptoTransform encryptor = rijAlg.CreateEncryptor(rijAlg.Key, rijAlg.IV);
-
-                // Create the streams used for encryption. 
+                
                 using (MemoryStream msEncrypt = new MemoryStream())
                 {
                     using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
@@ -59,12 +57,13 @@ namespace RFAS
                     }
                 }
             }
-
+            
             return encrypted;
         }
 
-        static string DecryptStringFromBytes(byte[] cipherText, byte[] Key, byte[] IV)
+        public string DecryptStringFromBytes(byte[] cipherText, byte[] Key, byte[] IV)
         {
+            // Check arguments. 
             if (cipherText == null || cipherText.Length <= 0)
                 throw new ArgumentNullException("cipherText");
             if (Key == null || Key.Length <= 0)
@@ -72,6 +71,8 @@ namespace RFAS
             if (IV == null || IV.Length <= 0)
                 throw new ArgumentNullException("IV");
 
+            // Declare the string used to hold 
+            // the decrypted text. 
             string plaintext = null;
 
             // Create an RijndaelManaged object 

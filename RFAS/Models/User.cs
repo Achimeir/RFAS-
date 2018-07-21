@@ -17,7 +17,7 @@ namespace Models
             this.userPass = userPass;
             this.classification = classification;
             this.userRole = new Role(RoleName);
-            this.userKeys = RSAEncryptionWrapper.getInstance().CreateKeys();
+            this.userKeys = AESEncryptionWrapper.getInstance().generateKeyAndVector();
         }
 
 
@@ -26,7 +26,7 @@ namespace Models
         public Classification classification { get; set; }
         public Role userRole { get; set; }
 
-        public Tuple<RSAParameters, RSAParameters> userKeys { get; set; }
+        public Tuple<byte[], byte[]> userKeys { get; set; }
         
 
 
@@ -34,16 +34,7 @@ namespace Models
         {
             return true;
         }
-
-        public RSAParameters getPrivateKey()
-        {
-            return this.userKeys.Item1;
-        }
-
-        public RSAParameters getPublicKey()
-        {
-            return this.userKeys.Item2;
-        }
+        
     }
 
     class GuestUser : User

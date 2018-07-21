@@ -59,7 +59,12 @@ namespace RFAS
 
             if (accessType.ToString().Contains("R"))
             {
-                this.FilePictureBox.Image = Image.FromFile(currentFile.filePath);
+                Bitmap newImage = null;
+                using (var image = new Bitmap(currentFile.filePath))
+                {
+                    newImage = new Bitmap(image);
+                }
+                this.FilePictureBox.Image = newImage;
                 this.FileTextBox.Visible = false;
             }
             else
@@ -75,14 +80,14 @@ namespace RFAS
         private void encryptButton_Click(object sender, EventArgs e)
         {
             currentFile.isEncrypted = true;
-            currentFile.Encrypt(this.currUser.getPublicKey());
+            currentFile.Encrypt(currUser.userKeys.Item1, currUser.userKeys.Item2);
             initializeFile(accessType);
         }
 
         private void decryptButton_Click(object sender, EventArgs e)
         {
             currentFile.isEncrypted = false;
-            currentFile.Decrypt(this.currUser.getPrivateKey());
+            currentFile.Decrypt(currUser.userKeys.Item1, currUser.userKeys.Item2);
             initializeFile(accessType);
         }
 

@@ -117,9 +117,9 @@ namespace RFAS
             {
                 // TODO: fix parameters.
                 // TODO: check permissions to do this thing.
-                File f = new File(FileDialog.SafeFileName, FileDialog.FileName,
-                    Utils.getFileTypeAccordingToFile(FileDialog.SafeFileName),
-                    false, null, environ.currentUser);
+                File f = FilesFactory.createFile(FileDialog.SafeFileName, FileDialog.FileName,
+                    false, null, environ.currentUser, Utils.getFileTypeAccordingToFile(FileDialog.SafeFileName));
+                
 
 
                 Random r = new Random();
