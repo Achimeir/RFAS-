@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;//System.IO.File
 using System.Drawing;
+using System.Security.Cryptography;
 
 namespace Models
 {
@@ -40,18 +41,67 @@ namespace Models
 
         }
 
-        public File Encrypt (string userHashKey)
+        public void Encrypt (RSAParameters key)
         {
-            // TODO
-            return null;
-            //return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, null)));
-        }
+            if(this.fileType == FileType.Text)
+            {
+                RSACryptoServiceProvider csp = new RSACryptoServiceProvider();
+                csp.ImportParameters(key);
+                var OriginalBytes = Convert.FromBase64String(System.IO.File.ReadAllText(this.filePath));
+                int maxLength = RSAEncryptionWrapper.getInstance().GetMaxEncryptionChunkSize();
+                int dataLength = OriginalBytes.Length;
+                int iterations = dataLength / maxLength;
 
-        public File Decrypt (string userHashKey)
+                System.Collections.ArrayList arrayList = new System.Collections.ArrayList();
+                for (int i = 0; i <= iterations; i++)
+                {
+                    int chunkSize = (dataLength - maxLength * i > maxLength) ?
+                                    maxLength : dataLength - maxLength * i;
+                    if (chunkSize == 0) {
+                        break;
+                    }
+
+                    byte[] tempBytes = new byte[chunkSize];
+                    System.Buffer.BlockCopy(OriginalBytes, maxLength * i,
+                        tempBytes, 0, tempBytes.Length);
+                    byte[] encriptedBytes = csp.Encrypt(tempBytes, false);
+
+                    System.Array.Reverse(encriptedBytes);
+                    arrayList.AddRange(encriptedBytes);
+                }
+                
+                var cypherText = Convert.ToBase64String((byte[])arrayList.ToArray(Type.GetType("System.Byte")));
+                System.IO.File.WriteAllText(this.filePath, cypherText);
+            }
+           }
+
+        public void Decrypt(RSAParameters key)
         {
-            // TODO
-            return null;
-            //return new File(null, null, FileType.Text, true, null, new User(null, null, new Role(null, null)));
+            if (this.fileType == FileType.Text)
+            {
+                RSACryptoServiceProvider csp = new RSACryptoServiceProvider();
+                csp.ImportParameters(key);
+                var OriginalBytes = Convert.FromBase64String(System.IO.File.ReadAllText(this.filePath));
+                int EncriptedChunckSize = RSAEncryptionWrapper.getInstance().GetMaxEncryptionChunkSize();
+                int dataLength = OriginalBytes.Length;
+                int iterations = dataLength / EncriptedChunckSize;
+
+                System.Collections.ArrayList arrayList =
+                    new System.Collections.ArrayList();
+                for (int i = 0; i < iterations; i++)
+                {
+                    byte[] tempBytes = new byte[EncriptedChunckSize];
+                    System.Buffer.BlockCopy(OriginalBytes,EncriptedChunckSize * i,
+                                            tempBytes, 0, tempBytes.Length);
+                    System.Array.Reverse(tempBytes);
+
+                    arrayList.AddRange(csp.Decrypt(tempBytes, false));
+                }
+
+                var cypherText = Convert.ToBase64String((byte[])arrayList.ToArray(Type.GetType("System.Byte")));
+                System.IO.File.WriteAllText(this.filePath, cypherText);
+
+            }
         }
 
 

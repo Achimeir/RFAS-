@@ -22,6 +22,7 @@ namespace RFAS
             listsInitializer();
         }
 
+
         private void DesktopForm_Load(object sender, EventArgs e)
         {
             this.welcomLabel.Text = "ברוך הבא " + environ.currentUser.userName;
@@ -180,7 +181,8 @@ namespace RFAS
             if (lstBxFiles.SelectedIndex > -1)
             {
                 File selectedFile = (File)lstBxFiles.SelectedItem;
-                FileForm fileForm = new FileForm(selectedFile, environ.currentUser.userRole.filesDict[selectedFile], environ.currentUser.userRole.grantDenyDict[selectedFile]);
+                FileForm fileForm = new FileForm(selectedFile, environ.currentUser.userRole.filesDict[selectedFile], environ.currentUser.userRole.grantDenyDict[selectedFile],
+                                            environ.currentUser);
                 fileForm.Show();
             }
         }
@@ -190,7 +192,7 @@ namespace RFAS
             if (lstBxPics.SelectedIndex > -1)
             {
                 File selectedFile = (File)lstBxPics.SelectedItem;
-                FileForm fileForm = new FileForm(selectedFile, environ.currentUser.userRole.filesDict[selectedFile], environ.currentUser.userRole.grantDenyDict[selectedFile]);
+                FileForm fileForm = new FileForm(selectedFile, environ.currentUser.userRole.filesDict[selectedFile], environ.currentUser.userRole.grantDenyDict[selectedFile], environ.currentUser);
                 fileForm.Show();
             }
         }

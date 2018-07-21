@@ -86,7 +86,7 @@
       <DependentUpon>DesktopForm.cs</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Encryption.cs" />
+    <Compile Include="RSAEncryptionWrapper.cs" />
     <Compile Include="FileForm.cs">
       <SubType>Form</SubType>
     </Compile>

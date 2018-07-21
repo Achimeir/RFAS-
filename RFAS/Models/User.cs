@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Security.Cryptography;
+
 
 namespace Models
 {
@@ -16,8 +16,8 @@ namespace Models
             this.userName = userName;
             this.userPass = userPass;
             this.classification = classification;
-            this.userRole = userRole;
             this.userRole = new Role(RoleName);
+            this.userKeys = RSAEncryptionWrapper.getInstance().CreateKeys();
         }
 
 
@@ -26,10 +26,23 @@ namespace Models
         public Classification classification { get; set; }
         public Role userRole { get; set; }
 
+        public Tuple<RSAParameters, RSAParameters> userKeys { get; set; }
+        
+
 
         public bool checkLogin (string userName,string userPass)
         {
             return true;
+        }
+
+        public RSAParameters getPrivateKey()
+        {
+            return this.userKeys.Item1;
+        }
+
+        public RSAParameters getPublicKey()
+        {
+            return this.userKeys.Item2;
         }
     }
 

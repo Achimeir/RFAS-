@@ -15,11 +15,13 @@ namespace RFAS
     {
         public Models.File currentFile;
         public Models.AccessType accessType;
-        public FileForm(Models.File file,Models.AccessType accessType,Models.GrantDenyType grantDeny)
+        public Models.User currUser;
+        public FileForm(Models.File file,Models.AccessType accessType,Models.GrantDenyType grantDeny, Models.User currentUser)
         {
             InitializeComponent();
             this.currentFile = file;
             this.accessType = accessType;
+            this.currUser = currentUser;
             this.Text = file.fileName.Split('.')[0];
             this.fileNameTextBox.Text = file.fileName;
             this.fileAccessTextBox.Text = accessType.ToString();
@@ -37,12 +39,8 @@ namespace RFAS
 
             if (accessType.ToString().Contains("R"))
             {
-                if (currentFile.isEncrypted)
-                    this.FileTextBox.Font = new Font("Webdings", 20);
-                else
-                    this.FileTextBox.Font = SystemFonts.DefaultFont;
+                this.FileTextBox.Font = SystemFonts.DefaultFont;
                 this.FileTextBox.Text = File.ReadAllText(currentFile.filePath);
-
             }
 
             else
@@ -77,12 +75,14 @@ namespace RFAS
         private void encryptButton_Click(object sender, EventArgs e)
         {
             currentFile.isEncrypted = true;
+            currentFile.Encrypt(this.currUser.getPublicKey());
             initializeFile(accessType);
         }
 
         private void decryptButton_Click(object sender, EventArgs e)
         {
             currentFile.isEncrypted = false;
+            currentFile.Decrypt(this.currUser.getPrivateKey());
             initializeFile(accessType);
         }
 
