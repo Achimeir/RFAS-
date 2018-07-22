@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Models
 {
+    /* This class represents a role in for a user in the system.
+       a role is consisted of file dictionary, when each file is given an accesstype.
+       moreover, consisted of file to grand-deny-type. */
     public class Role
     {
         public Role(string roleName )

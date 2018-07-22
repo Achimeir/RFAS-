@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
+    // Enum representing the access type a user has on a file(Read/Delete/Write).
     public enum AccessType
     {
         None,
@@ -18,6 +19,7 @@ namespace Models
         RWD       
     }
 
+    // Enum for representing Grant/Deny permission on a file.
     public enum GrantDenyType
     {
         None,

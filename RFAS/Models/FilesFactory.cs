@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Models
 {
+    /* This class is static and acts as a factory of files,
+       with a given parameters and files types, it creates the
+       wanted file*/
     public static class FilesFactory
     {
         public static File createFile(string fileName, string filePath, bool isEncrypted, List<string> validityBit, User creator, FileType fileType, Classification classification = Classification.None)

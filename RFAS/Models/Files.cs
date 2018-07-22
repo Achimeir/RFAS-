@@ -11,6 +11,7 @@ namespace Models
     public enum FileType
     {Text,Picture}
 
+    // Text file representing a textual file in the system.
     public class TextFile : File
     {
         public TextFile(string fileName, string filePath, bool isEncrypted, List<string> validityBit, User creator, Classification classification = Classification.None) :
@@ -36,6 +37,7 @@ namespace Models
         }
     }
 
+    // Picture file representing a picture in the file system.
     public class PictureFile : File
     {
         public PictureFile(string fileName, string filePath, bool isEncrypted, List<string> validityBit, User creator, Classification classification = Classification.None) : 
@@ -47,7 +49,6 @@ namespace Models
         public override void Decrypt(byte[] key, byte[] iv)
         {
             Image imgInput = Image.FromFile(this.filePath);
-
             System.Windows.Forms.MessageBox.Show(SteganographyWrapper.ExtractTextFromImage((Bitmap)imgInput));
             imgInput.Dispose();
         }
@@ -65,13 +66,18 @@ namespace Models
             System.IO.File.Copy(temppic, filePath);
         }
     }
+
+    /* Base class representing a file.
+     * A file is representing with the following:
+     * Filename, filePath, isEncypted(indication if the file is encrypted),
+     * validityBit, creator(the user who created the file) and the classification(TS, S, etc..)*/
+    
     public abstract class File
     {
         public File(string fileName, string filePath, bool isEncrypted, List<string> validityBit, User creator, Classification classification=Classification.None)
         {
             this.fileName = fileName;
             this.filePath = filePath;
-            this.fileType = fileType;
             this.isEncrypted = isEncrypted;
             this.validityBit = validityBit;
             this.creator = creator;
@@ -87,6 +93,10 @@ namespace Models
         public Classification classification { get; set; }
         
 
+        /* Two abstract methods that each of the extending classes will implement
+           Encrypt - for text - encrypting the text with key and IV. 
+                     for image - hiding the encryptData in the image.
+           Decrypt - exactly the opposite for Encryption.*/           
         public abstract void Encrypt(byte[] key, byte[] iv, string encryptData = null);
         public abstract void Decrypt(byte[] key, byte[] iv);
 

@@ -8,22 +8,12 @@ namespace Models
 {
     public class Environment
     {
-        //public Environment(AccessControlStructure accessModel, List<Access> accessList, string currentUser=null, List<User> newUsersList = null)
-        //{
-        //   accessModel = accessModel;
-        //    accessList = accessList;
-        //    this.currentUser = currentUser;
-        //    if (usersList==null)
-        //   {
-        //        usersList = new List<User>() { new Admin("Admin", "123456", null) };
-        //    }
-        //}
-        public static List<User> usersList;
-        public static List<File> filesList;
+        public static List<User> usersList;             // User list representing the user list in the system.
+        public static List<File> filesList;             // File list representing the file list in the system.
 
-        public static List<Access> accessList;
+        public static List<Access> accessList;          // Access list representing the access list in the system.
 
-        public User currentUser { get; set; }
+        public User currentUser { get; set; }           // The current user logged in to the environment.
 
         public Environment(User currentUser)
         {
@@ -32,38 +22,12 @@ namespace Models
 
         static Environment()
         {
+            // Initializing the system with 3 random users of 3 different types.
             usersList = new List<User>() { new Admin("Admin", "123456", null),
                                            new RegularUser ("Rani","12345",null),
                                            new GuestUser ("Guest","1234",null)};
-
-            // TODO: this should be empty, initialization should not be here.
-            filesList = new List<File>();// { new File("file1", "c:/temp", FileType.Text, false, null, usersList[1]),
-            /* new File("file2", "c:/temp", FileType.Text, false, null, usersList[1]),
-             new File("file3", "c:/temp", FileType.Picture, false, null, usersList[1]),
-             new File("fileGuest1", "c:/temp", FileType.Text, false, null, usersList[2]),
-             new File("fileGuest2", "c:/temp", FileType.Picture, false, null, usersList[2])};*/
-
-            accessList = new List<Access>(); //{ new Access(usersList[1], usersList[1], filesList[0], AccessType.RWD) };
-
-        
+            filesList = new List<File>();
+            accessList = new List<Access>();
         }
-
-        public void login (string userName, string userPass)
-        {
-
-        }
-
-        public void logout ()
-        {
-
-        }
-
-        public List<string> getUsersNames ()
-        {
-            return new List<string>();
-        }
-
-
-
     }
 }

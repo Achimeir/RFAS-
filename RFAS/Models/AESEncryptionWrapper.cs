@@ -5,6 +5,8 @@ using System.Windows.Forms;
 
 namespace Models
 {
+    /* Class for wrapping the AES Encryption algorithm.
+     * This class is a singelton */
     public class AESEncryptionWrapper
     {
         private static AESEncryptionWrapper instance = null;
@@ -22,21 +24,18 @@ namespace Models
             return instance;
         }
 
+        // The function generates a random Key and Initialization Vector.
         public Tuple<byte[], byte[]> generateKeyAndVector()
         {
             AES.GenerateIV();
             AES.GenerateKey();
             return new Tuple<byte[], byte[]>(AES.Key, AES.IV);
         }
+
+        /* The function received a string, key and initialiation vector and encrypts
+           the input string with them */
         public byte[] EncryptStringToBytes(string plainText, byte[] Key, byte[] IV)
         {
-            // Check arguments. 
-            if (plainText == null || plainText.Length <= 0)
-                throw new ArgumentNullException("plainText");
-            if (Key == null || Key.Length <= 0)
-                throw new ArgumentNullException("Key");
-            if (IV == null || IV.Length <= 0)
-                throw new ArgumentNullException("IV");
             byte[] encrypted;
 
             using (RijndaelManaged rijAlg = new RijndaelManaged())
@@ -62,31 +61,19 @@ namespace Models
             return encrypted;
         }
 
+        /* The function receives byte array, key and initialization vector.
+           The function returns the decrypted data from the byte array using the key and IV. */
         public string DecryptStringFromBytes(byte[] cipherText, byte[] Key, byte[] IV)
         {
-            // Check arguments. 
-            if (cipherText == null || cipherText.Length <= 0)
-                throw new ArgumentNullException("cipherText");
-            if (Key == null || Key.Length <= 0)
-                throw new ArgumentNullException("Key");
-            if (IV == null || IV.Length <= 0)
-                throw new ArgumentNullException("IV");
-
-            // Declare the string used to hold 
-            // the decrypted text. 
             string plaintext = null;
-
-            // Create an RijndaelManaged object 
-            // with the specified key and IV. 
+            
             using (RijndaelManaged rijAlg = new RijndaelManaged())
             {
                 rijAlg.Key = Key;
                 rijAlg.IV = IV;
-
-                // Create a decrytor to perform the stream transform.
+                
                 ICryptoTransform decryptor = rijAlg.CreateDecryptor(rijAlg.Key, rijAlg.IV);
-
-                // Create the streams used for decryption. 
+                
                 using (MemoryStream msDecrypt = new MemoryStream(cipherText))
                 {
                     using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
@@ -104,11 +91,8 @@ namespace Models
                         }
                     }
                 }
-
             }
-
             return plaintext;
-
         }
 
 
