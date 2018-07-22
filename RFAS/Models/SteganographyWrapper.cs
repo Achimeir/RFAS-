@@ -3,6 +3,7 @@ using System.Drawing;
 // taken from: https://www.codeproject.com/Tips/635715/Steganography-Simple-Implementation-in-Csharp
 namespace Models
 {
+    /* The class serves as steganography wrapper for the LSB steganography algorithm */
     public static class SteganographyWrapper
     {
         public enum State
@@ -11,6 +12,8 @@ namespace Models
             Filling_With_Zeros
         };
 
+        /* The function receives a text and a bitmap and hides the text in the bitmap
+         * using the LSB alglrithm */
         public static Bitmap HideTextInImage(string text, Bitmap bmp)
         {
             State state = State.Hiding;
@@ -97,6 +100,7 @@ namespace Models
             return bmp;
         }
 
+        /* The function receives a bitmap and returns the string hidden in it */
         public static string ExtractTextFromImage(Bitmap bmp)
         {
             int colorUnitIndex = 0;

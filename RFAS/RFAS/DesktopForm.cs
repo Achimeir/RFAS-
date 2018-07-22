@@ -141,17 +141,17 @@ namespace RFAS
         {
 
             IEnumerable<File> userFiles = Models.Environment.filesList.Where(fi =>environ.currentUser.userRole.filesDict.ContainsKey(fi));
-            Utils.InitializeListBox<File>(lstBxFiles, "fileName", "fileName", userFiles.Where(fi => fi.fileType == FileType.Text).ToList());
-            Utils.InitializeListBox<File>(lstBxPics, "fileName", "fileName", userFiles.Where(fi => fi.fileType == FileType.Picture).ToList());
-            Utils.InitializeComboBox<File>(fileComboBox, "filename", "filename", Models.Environment.filesList);
-            Utils.InitializeComboBox<User>(userComboBox, "userName", "userName", Models.Environment.usersList);
-            Utils.InitializeComboBox<string>(accessComboBox, "accessName", "accessName", Enum.GetNames(typeof(AccessType)).ToList());
-            Utils.InitializeListBox<User>(lbUsers, "userName", "userName", Models.Environment.usersList);
+            Utils.InitializeListControl<File>(lstBxFiles, "fileName", "fileName", userFiles.Where(fi => fi.fileType == FileType.Text).ToList());
+            Utils.InitializeListControl<File>(lstBxPics, "fileName", "fileName", userFiles.Where(fi => fi.fileType == FileType.Picture).ToList());
+            Utils.InitializeListControl<File>(fileComboBox, "filename", "filename", Models.Environment.filesList);
+            Utils.InitializeListControl<User>(userComboBox, "userName", "userName", Models.Environment.usersList);
+            Utils.InitializeListControl<string>(accessComboBox, "accessName", "accessName", Enum.GetNames(typeof(AccessType)).ToList());
+            Utils.InitializeListControl<User>(lbUsers, "userName", "userName", Models.Environment.usersList);
 
             if (environ.currentUser is Admin)
-                Utils.InitializeComboBox<User>(zeroPassUserComboBox, "userName", "userName", Models.Environment.usersList);
+                Utils.InitializeListControl<User>(zeroPassUserComboBox, "userName", "userName", Models.Environment.usersList);
             else
-                Utils.InitializeComboBox<User>(zeroPassUserComboBox, "userName", "userName", new List<User>() { environ.currentUser });
+                Utils.InitializeListControl<User>(zeroPassUserComboBox, "userName", "userName", new List<User>() { environ.currentUser });
 
             canGranCheckBox.Checked = false;
             canDenyCheckBox.Checked = false;

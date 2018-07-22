@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.IO;
+using Models;
 
 namespace RFAS
 {
@@ -17,8 +18,7 @@ namespace RFAS
         public MainForm()
         {
             InitializeComponent();
-            AESEncryptionWrapper.getInstance();
-            
+            AESEncryptionWrapper.getInstance();            
         }
         
 

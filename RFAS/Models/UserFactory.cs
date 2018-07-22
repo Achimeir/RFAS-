@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Models
 {
+    /* This class serves as a factory of users. given user details and user types,
+     * the factory creates the requested User */
     public static class UserFactory
     {
         public static User createUser(UserType userType, string userName, string userPsw)

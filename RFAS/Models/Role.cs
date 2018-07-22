@@ -24,6 +24,7 @@ namespace Models
 
         public Dictionary<File, GrantDenyType> grantDenyDict { get; set; }
 
+        /* The function adds a new file with the given accesstype and grantdenytype. */
         public void addFile (File file, AccessType fileAccessType,GrantDenyType fileGrantDenyType = GrantDenyType.GrantDeny)
         {
             if (filesDict.ContainsKey(file))
@@ -43,6 +44,8 @@ namespace Models
             grantDenyDict[file] = fileGrantDenyType;
         }
 
+
+        // The function discards an access from the file.
         public void discardAccess(File file, AccessType fileAccessType)
         {
             if (filesDict.ContainsKey(file))
@@ -51,18 +54,7 @@ namespace Models
                     filesDict[file] = (AccessType)(Math.Max(((int)filesDict[file] - (int)fileAccessType),0));
             }
         }
-
-        public void discardFile(File file)
-        {
-            if (filesDict.ContainsKey(file))
-                filesDict.Remove(file);
-        }
-
-        public void updateRole (Role newRole)
-        {
-            // TODO: what?
-        }
-
+        
 
     }
 }
