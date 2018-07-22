@@ -173,7 +173,6 @@ namespace RFAS
             this.passTab.TabIndex = 3;
             this.passTab.Text = " סיסמאות והצפנה ";
             this.passTab.UseVisualStyleBackColor = true;
-            this.passTab.Click += new System.EventHandler(this.passTab_Click);
             // 
             // changeHashButton
             // 
@@ -234,7 +233,6 @@ namespace RFAS
             this.passTrackBar.Name = "passTrackBar";
             this.passTrackBar.Size = new System.Drawing.Size(219, 45);
             this.passTrackBar.TabIndex = 12;
-            this.passTrackBar.Scroll += new System.EventHandler(this.passTrackBar_Scroll);
             this.passTrackBar.BackColorChanged += new System.EventHandler(this.passTrackBar_BackColorChanged);
             // 
             // newPassTextBox

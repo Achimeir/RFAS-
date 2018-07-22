@@ -49,7 +49,7 @@ namespace RFAS
                 {
                     this.FileTextBox.Font = SystemFonts.DefaultFont;
                     this.FileTextBox.Text = "אינך יכול לקרוא את הקובץ";
-                    MessageBox.Show("אין לך הרשאות לקרוא את הקובץ");
+                    MessageBox.Show("אין לך הרשאות לקרוא את הקובץ", "תקלה", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 if (!accessType.ToString().Contains("W"))
@@ -72,7 +72,7 @@ namespace RFAS
                     this.FileTextBox.Visible = true;
                     this.FileTextBox.Text = "אינך יכול לראות את התמונה";
                     this.FileTextBox.Enabled = false;
-                    MessageBox.Show("אין לך הרשאות לקרוא את הקובץ");
+                    MessageBox.Show("אין לך הרשאות לקרוא את הקובץ", "תקלה", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -95,7 +95,7 @@ namespace RFAS
                 this.FileTextBox.Visible = true;
                 this.FileTextBox.Text = "אינך יכול לראות את התמונה";
                 this.FileTextBox.Enabled = false;
-                MessageBox.Show("אין לך הרשאות לקרוא את הקובץ");
+                MessageBox.Show("אין לך הרשאות לקרוא את הקובץ","תקלה",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
             
         }
@@ -116,7 +116,7 @@ namespace RFAS
                 initializeFile(accessType);
             }
             else
-                MessageBox.Show("הקובץ כבר מוצפן");
+                MessageBox.Show("הקובץ כבר מוצפן","הצפנה");
         }
 
         private void decryptButton_Click(object sender, EventArgs e)
@@ -128,7 +128,7 @@ namespace RFAS
                 initializeFile(accessType);
             }
             else
-                MessageBox.Show("הקובץ איננו מוצפן, קריאה נעימה");
+                MessageBox.Show("הקובץ איננו מוצפן, קריאה נעימה","הצפנה");
 
         }
 
@@ -141,22 +141,5 @@ namespace RFAS
                 File.AppendAllText(currentFile.filePath, this.FileTextBox.Text.Remove(this.FileTextBox.Text.IndexOf("אינך יכול לקרוא את הקובץ"), "אינך יכול לקרוא את הקובץ".Length));
         }
 
-        private void FilePictureBox_DragDrop(object sender, DragEventArgs e)
-        {
-            MessageBox.Show("Drag and drop");
-            this.FilePictureBox.Image = (Image)e.Data;          
-            
-        }
-
-        private void FilePictureBox_DragEnter(object sender, DragEventArgs e)
-        {
-            MessageBox.Show("Drag and enter");
-            this.FilePictureBox.Image = (Image)e.Data;
-        }
-
-        private void grantCheckBoxView_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

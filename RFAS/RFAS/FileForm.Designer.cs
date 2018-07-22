@@ -89,8 +89,6 @@
             this.FilePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.FilePictureBox.TabIndex = 4;
             this.FilePictureBox.TabStop = false;
-            this.FilePictureBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.FilePictureBox_DragDrop);
-            this.FilePictureBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.FilePictureBox_DragEnter);
             // 
             // FileTextBox
             // 
@@ -133,7 +131,6 @@
             this.grantCheckBoxView.TabIndex = 8;
             this.grantCheckBoxView.Text = "יכול לתת";
             this.grantCheckBoxView.UseVisualStyleBackColor = true;
-            this.grantCheckBoxView.CheckedChanged += new System.EventHandler(this.grantCheckBoxView_CheckedChanged);
             // 
             // DenyCheckBoxView
             // 

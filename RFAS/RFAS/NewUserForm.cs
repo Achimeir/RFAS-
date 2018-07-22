@@ -14,6 +14,7 @@ namespace RFAS
 {
     public partial class NewUserForm : Form
     {
+        public int score = 0;
         public NewUserForm()
         {
             InitializeComponent();
@@ -27,15 +28,22 @@ namespace RFAS
                 var users = Models.Environment.usersList.Where(u => u.userName == txtBxUser.Text);
                 if (users.Any())
                 {
-                    MessageBox.Show("מצטערים, אבל שם המשתמש שבחרת כבר קיים...");
+                    MessageBox.Show("מצטערים, אבל שם המשתמש שבחרת כבר קיים...", "יצירת משתמשים", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    UserType UT = Utils.ParseEnum<UserType>(ComboBxUserType.SelectedItem.ToString());
-                    User u = UserFactory.createUser(UT, txtBxUser.Text, txtBxPsw.Text);
-                    Models.Environment.usersList.Add(u);
+                    if (score >= 4)
+                    {
+                        UserType UT = Utils.ParseEnum<UserType>(ComboBxUserType.SelectedItem.ToString());
+                        User u = UserFactory.createUser(UT, txtBxUser.Text, txtBxPsw.Text);
+                        Models.Environment.usersList.Add(u);
+                        MessageBox.Show(" נוצר בהצלחה " + txtBxUser.Text + " המשתמש ", "יצירת משתמש", MessageBoxButtons.OK);
+                    }
+                    else
+                    {
+                        MessageBox.Show("בבקשה תבחר סיסמא חזקה יותר", "שגיאה", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                MessageBox.Show(" נוצר בהצלחה "+ txtBxUser.Text+" המשתמש ","יצירת משתמש",MessageBoxButtons.OK);
             }
             else
                 MessageBox.Show("יצירת המשתמש נכשלה","שגיאה",MessageBoxButtons.OK,MessageBoxIcon.Error);
@@ -54,7 +62,7 @@ namespace RFAS
             else
             {
                 string passwordLengthText = "";
-                int score = PasswordCheckerWrapper.getPasswordScore(txtBxPsw.Text);
+                score = PasswordCheckerWrapper.getPasswordScore(txtBxPsw.Text);
                 if (score >= 0 && score < 2)
                 {
                     passwordLengthText = "סיסמא חלשה!";

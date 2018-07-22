@@ -68,7 +68,7 @@ namespace RFAS
             User u = (User)lbUsers.SelectedItem;
             if (u is Admin)
             {
-                MessageBox.Show("מצטערים, אבל מחיקת אדמין היא לא אפשרית");
+                MessageBox.Show("מצטערים, אבל מחיקת אדמין היא לא אפשרית","תקלה",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 return;
             }
 
@@ -203,7 +203,6 @@ namespace RFAS
                 return;
             AccessDetailsForm accessDetailsForm = new AccessDetailsForm((File)fileComboBox.SelectedItem, PurposeType.ACL);
             accessDetailsForm.Show();
-            //MessageBox.Show("TODO: Show all file permission");
         }
 
         private void userAccessButton_Click(object sender, EventArgs e)
@@ -212,7 +211,6 @@ namespace RFAS
                 return;
             AccessDetailsForm accessDetailsForm = new AccessDetailsForm((User)userComboBox.SelectedItem, PurposeType.CList);
             accessDetailsForm.Show();
-            //MessageBox.Show("TODO: show all user permission");
         }
 
         private void grantButton_Click(object sender, EventArgs e)
@@ -233,14 +231,14 @@ namespace RFAS
                 {                   
                     int grantDenyValue = (canDenyCheckBox.Checked ? 1 : 0) + (canGranCheckBox.Checked ? 2 : 0);
                     ((User)userComboBox.SelectedItem).userRole.addFile((File)fileComboBox.SelectedItem, (AccessType)accessComboBox.SelectedIndex,(GrantDenyType)grantDenyValue);
-                    MessageBox.Show(((User)userComboBox.SelectedItem).userName+ " למשתמש " + (AccessType)accessComboBox.SelectedIndex + " נתת הרשאת ");
+                    MessageBox.Show(((User)userComboBox.SelectedItem).userName+ " למשתמש " + (AccessType)accessComboBox.SelectedIndex + " נתת הרשאת ","הרשאה",MessageBoxButtons.OK);
                 }
                 else
-                    MessageBox.Show(((File)fileComboBox.SelectedItem).fileName + " לקובץ " + (AccessType)accessComboBox.SelectedIndex+" אתה לא רשאי לתת הרשאה מסוג");
+                    MessageBox.Show(((File)fileComboBox.SelectedItem).fileName + " לקובץ " + (AccessType)accessComboBox.SelectedIndex+" אתה לא רשאי לתת הרשאה מסוג","תקלה",MessageBoxButtons.OK,MessageBoxIcon.Error);
 
             }
             else
-                MessageBox.Show(((File)fileComboBox.SelectedItem).fileName + " לא קיימות הרשאות עבור הקובץ");
+                MessageBox.Show(((File)fileComboBox.SelectedItem).fileName + " לא קיימות הרשאות עבור הקובץ","תקלה",MessageBoxButtons.OK,MessageBoxIcon.Error);
 
             listsInitializer();
         }
@@ -266,30 +264,20 @@ namespace RFAS
                     if (((User)userComboBox.SelectedItem).userRole.filesDict.ContainsKey((File)fileComboBox.SelectedItem))
                     {
                         ((User)userComboBox.SelectedItem).userRole.discardAccess((File)fileComboBox.SelectedItem, (AccessType)accessComboBox.SelectedIndex);
-                        MessageBox.Show(((User)userComboBox.SelectedItem).userName + " למשתמש " + (AccessType)accessComboBox.SelectedIndex + " מחקת הרשאת");
+                        MessageBox.Show(((User)userComboBox.SelectedItem).userName + " למשתמש " + (AccessType)accessComboBox.SelectedIndex + " מחקת הרשאת","מחיקת הרשאות");
                     }
 
                     else
-                        MessageBox.Show(((File)fileComboBox.SelectedItem).fileName + " לקובץ "+(AccessType)accessComboBox.SelectedIndex +" אין הרשאת " +((User)userComboBox.SelectedItem).userName + " למשתמש");
+                        MessageBox.Show(((File)fileComboBox.SelectedItem).fileName + " לקובץ "+(AccessType)accessComboBox.SelectedIndex +" אין הרשאת " +((User)userComboBox.SelectedItem).userName + " למשתמש","מחיקת הרשאות");
                 }
                 else
-                    MessageBox.Show(((File)fileComboBox.SelectedItem).fileName + " לקובץ " + (AccessType)accessComboBox.SelectedIndex + " אתה לא רשאי למחוק הרשאה מסוג");
+                    MessageBox.Show(((File)fileComboBox.SelectedItem).fileName + " לקובץ " + (AccessType)accessComboBox.SelectedIndex + " אתה לא רשאי למחוק הרשאה מסוג","מחיקת הרשאות",MessageBoxButtons.OK,MessageBoxIcon.Error);
 
             }
             else
-                MessageBox.Show(((File)fileComboBox.SelectedItem).fileName+" לא קיימות הרשאות עבור הקובץ");
+                MessageBox.Show(((File)fileComboBox.SelectedItem).fileName+" לא קיימות הרשאות עבור הקובץ","תקלה",MessageBoxButtons.OK,MessageBoxIcon.Error);
 
             listsInitializer();
-        }
-
-        private void passTrackBar_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void newPassTextBox_TextChanged(object sender, EventArgs e)
@@ -319,11 +307,11 @@ namespace RFAS
         private void changePassButton_Click(object sender, EventArgs e)
         {
             if (passTrackBar.Value <= 8)
-                MessageBox.Show("עליך לבחור סיסמא חזקה יותר");
+                MessageBox.Show("עליך לבחור סיסמא חזקה יותר","בחירת סיסמא",MessageBoxButtons.OK,MessageBoxIcon.Error);
             else
             {
                 ((User)zeroPassUserComboBox.SelectedItem).userPass = newPassTextBox.Text;
-                MessageBox.Show(newPassTextBox.Text + " הסיסמא החדשה היא ");
+                MessageBox.Show(newPassTextBox.Text + " הסיסמא החדשה היא ", "בחירת סיסמא", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 newPassTextBox.Text = "בחר סיסמא חדשה";
                 zeroPassUserComboBox.Refresh();
                 zeroPassUserComboBox.Text = "בחר משתמש";
@@ -332,21 +320,16 @@ namespace RFAS
             }
         }
 
-        private void passTab_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void changeHashButton_Click(object sender, EventArgs e)
         {
             if (environ.currentUser is RegularUser || environ.currentUser is Admin)
             {
                 ((RegularUser)environ.currentUser).userHashKey = hashKeyTextBox.Text;
-                MessageBox.Show(hashKeyTextBox.Text + " מפתח ההצפנה החדש הוא ");
+                MessageBox.Show(hashKeyTextBox.Text + " מפתח ההצפנה החדש הוא ", "מפתחות הצפנה", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 hashKeyTextBox.Text = "XXXXXXXXXXXXXXXXX";
             }
             else
-                MessageBox.Show("אורחים לא יכולים לשנות מפתחות הצפנה");
+                MessageBox.Show("אורחים לא יכולים לשנות מפתחות הצפנה", "מפתחות הצפנה", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
