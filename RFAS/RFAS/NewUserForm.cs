@@ -27,7 +27,7 @@ namespace RFAS
                 var users = Models.Environment.usersList.Where(u => u.userName == txtBxUser.Text);
                 if (users.Any())
                 {
-                    MessageBox.Show("מצטערים, אבל שם המשתמש שבחרת כבר קיים...");
+                    MessageBox.Show("מצטערים, אבל שם המשתמש שבחרת כבר קיים...","יצירת משתמשים",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 }
                 else
                 {

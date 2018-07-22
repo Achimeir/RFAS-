@@ -27,7 +27,7 @@ namespace RFAS
                 this.Close();
             }
             else
-                MessageBox.Show("בבקשה בחר טקסט להצפנה");
+                MessageBox.Show("בבקשה בחר טקסט להצפנה","תקלה",MessageBoxButtons.OK,MessageBoxIcon.Error);
         }
     }
 }

@@ -48,7 +48,7 @@ namespace Models
         {
             Image imgInput = Image.FromFile(this.filePath);
 
-            System.Windows.Forms.MessageBox.Show(SteganographyHelper.extractText((Bitmap)imgInput));
+            System.Windows.Forms.MessageBox.Show(SteganographyHelper.extractText((Bitmap)imgInput)+"הטקסט שהוצפן הוא: \n","פיענוח הצפנה");
             imgInput.Dispose();
         }
 
