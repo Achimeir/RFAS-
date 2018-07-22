@@ -42,4 +42,5 @@ public static class Utils
         else
             return FileType.Picture;
     }
+
 }

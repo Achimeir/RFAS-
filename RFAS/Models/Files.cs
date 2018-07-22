@@ -48,7 +48,7 @@ namespace Models
         {
             Image imgInput = Image.FromFile(this.filePath);
 
-            System.Windows.Forms.MessageBox.Show(SteganographyHelper.extractText((Bitmap)imgInput));
+            System.Windows.Forms.MessageBox.Show(SteganographyWrapper.ExtractTextFromImage((Bitmap)imgInput));
             imgInput.Dispose();
         }
 
@@ -57,7 +57,7 @@ namespace Models
             string temppic = Path.GetTempPath() + "temp" + Path.GetExtension(filePath);
             Image imgInput = Image.FromFile(this.filePath);
            
-            imgInput =(Image)SteganographyHelper.embedText(encryptData, (Bitmap)imgInput);
+            imgInput =(Image)SteganographyWrapper.HideTextInImage(encryptData, (Bitmap)imgInput);
             imgInput.Save(temppic);
             imgInput.Dispose();
 

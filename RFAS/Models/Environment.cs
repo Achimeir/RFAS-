@@ -22,7 +22,6 @@ namespace Models
         public static List<File> filesList;
 
         public static List<Access> accessList;
-        public static AccessControlStructure accessModel;
 
         public User currentUser { get; set; }
 
@@ -46,7 +45,7 @@ namespace Models
 
             accessList = new List<Access>(); //{ new Access(usersList[1], usersList[1], filesList[0], AccessType.RWD) };
 
-            accessModel = new AccessControlStructure(null, AccessControlType.AccessMatrix);//accessList, AccessControlType.AccessMatrix);
+        
         }
 
         public void login (string userName, string userPass)

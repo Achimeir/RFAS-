@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace Models
 {
@@ -92,10 +93,14 @@ namespace Models
                     {
                         using (StreamReader srDecrypt = new StreamReader(csDecrypt))
                         {
-
-                            // Read the decrypted bytes from the decrypting stream 
-                            // and place them in a string.
-                            plaintext = srDecrypt.ReadToEnd();
+                            try
+                            {
+                                plaintext = srDecrypt.ReadToEnd();
+                            }
+                            catch
+                            {
+                                MessageBox.Show("מצטערים, נראה שאין לך את המפתחות הנכונים לפיענוח הקובץ...");
+                            }
                         }
                     }
                 }
