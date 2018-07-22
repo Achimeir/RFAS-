@@ -13,12 +13,11 @@ namespace RFAS
 {
     public partial class DesktopForm : Form
     {
-        public Models.Environment environ;
+        public Models.Environment environ;          // The current environment object.
         public DesktopForm(User currentUser)
         {
             InitializeComponent();
             environ = new Models.Environment(currentUser);
-            //Utils.InitializeListBox<User>(lbUsers, "userName", "userName", Models.Environment.usersList);
             listsInitializer();
         }
 
@@ -29,11 +28,7 @@ namespace RFAS
         }
 
         private void welcomLabel_Click_2(object sender, EventArgs e)
-        {
-            //foreach (User item in Models.Environment.usersList)
-            //    if (item.userName== environ.currentUser)
-            //        MessageBox.Show("How are you feeling today " +item.userName + " ?", ";)", MessageBoxButtons.OK, MessageBoxIcon.Question);
-        }
+        {}
         
 
         private void loginButton_Click(object sender, EventArgs e)
@@ -43,7 +38,7 @@ namespace RFAS
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // if there is a selected user
+            // if there is a selected user, show button.
             bool delete_button_visibility = lbUsers.SelectedIndex != -1;
             btnDeleteUser.Visible = delete_button_visibility;
 
@@ -51,10 +46,10 @@ namespace RFAS
 
         private void tabControl_Selecting(object sender, TabControlCancelEventArgs e)
         {
+            // Prevent user which is not admin to go into the userTab 
             User u = environ.currentUser;
             if (e.TabPageIndex > 0 && !(u is Admin))
             {
-                // todo: make a list for each user type & check access.
                 if (e.TabPage == userTab)
                 {
                     e.Cancel = true;
@@ -65,6 +60,7 @@ namespace RFAS
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
+            // Only let delete when user is a admin.
             User u = (User)lbUsers.SelectedItem;
             if (u is Admin)
             {
@@ -76,27 +72,27 @@ namespace RFAS
             {
                 Models.Environment.usersList.Remove(u);
                 listsInitializer();
-                //Utils.InitializeListBox<User>(lbUsers, "userName", "userName", Models.Environment.usersList);
             }
         }
 
         private void btnCreateU_Click(object sender, EventArgs e)
         {
+            // Create the newUserForm form.
             NewUserForm NU = new NewUserForm();
             NU.ShowDialog();
             listsInitializer();
-            //Utils.InitializeListBox<User>(lbUsers, "userName", "userName", Models.Environment.usersList);
         }
 
         private void btnDeleteFiles_Click(object sender, EventArgs e)
         {
-            // TODO: check permissions?
+            // Add option to delete the file
             ListBox listBoxWithSelectedItem = (lstBxFiles.SelectedIndex != -1) ? lstBxFiles : lstBxPics;
             if (listBoxWithSelectedItem.SelectedItem != null)
             {
                 File v = (File)listBoxWithSelectedItem.SelectedItem;
                 if (DialogResult.Yes == MessageBox.Show("? " + v.fileName + " אתה בטוח שאתה רוצה למחוק את הקובץ הזה", "מחיקה", MessageBoxButtons.YesNo))
                 {
+                    // check if the user is permitted to do this action.
                     int userAccessPremission = (int)(environ.currentUser.userRole.filesDict[v]);
                     if (userAccessPremission == 3 || userAccessPremission >= 5)
                     {
@@ -112,22 +108,21 @@ namespace RFAS
 
         private void btnAddFile_Click(object sender, EventArgs e)
         {
-            // TODO: add also PNG/JPG to filter on file_dialog.
+            // If the user wanted to add the file.
             if (FileDialog.ShowDialog() == DialogResult.OK)
             {
-                // TODO: fix parameters.
-                // TODO: check permissions to do this thing.
+
                 File f = FilesFactory.createFile(FileDialog.SafeFileName, FileDialog.FileName,
                     false, null, environ.currentUser, Utils.getFileTypeAccordingToFile(FileDialog.SafeFileName));
+
                 
-
-
                 Random r = new Random();
                 if (!Models.Environment.filesList.Exists(file => file.fileName == f.fileName))
                 {
                     Models.Environment.filesList.Add(f);
+                    // Randomly create accessType to the file..
                     AccessType accessType = (AccessType)r.Next(0, 8);
-
+                    // Add the file to the current user .
                     environ.currentUser.userRole.addFile(f, accessType);
                     listsInitializer();
                 }
@@ -137,6 +132,7 @@ namespace RFAS
             }
         }
 
+        /* The function serves as initializer for all the types of listcontrols in the form*/
         private void listsInitializer()
         {
 
@@ -166,6 +162,7 @@ namespace RFAS
             userComboBox.Text="רשימת משתמשים";
         }
 
+        
         private void lstBxFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
             Utils.HandleOnlyOnceSelectedItemWithinListBox(lstBxFiles, lstBxPics);
@@ -178,6 +175,7 @@ namespace RFAS
 
         private void lstBxFiles_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            // If there is a file selected on the double click, open a form for it..
             if (lstBxFiles.SelectedIndex > -1)
             {
                 File selectedFile = (File)lstBxFiles.SelectedItem;
@@ -189,6 +187,7 @@ namespace RFAS
 
         private void lstBxPics_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            // If there is a file selected on the double click, open a form for it..
             if (lstBxPics.SelectedIndex > -1)
             {
                 File selectedFile = (File)lstBxPics.SelectedItem;
@@ -199,6 +198,7 @@ namespace RFAS
 
         private void fileAccessButton_Click(object sender, EventArgs e)
         {
+            // Handle the file access button, show the access detail form for it.
             if (fileComboBox.SelectedIndex < 0)
                 return;
             AccessDetailsForm accessDetailsForm = new AccessDetailsForm((File)fileComboBox.SelectedItem, PurposeType.ACL);
@@ -207,6 +207,7 @@ namespace RFAS
 
         private void userAccessButton_Click(object sender, EventArgs e)
         {
+            // Handle the file access button, show the access detail form for it.
             if (userComboBox.SelectedIndex < 0)
                 return;
             AccessDetailsForm accessDetailsForm = new AccessDetailsForm((User)userComboBox.SelectedItem, PurposeType.CList);
@@ -215,6 +216,7 @@ namespace RFAS
 
         private void grantButton_Click(object sender, EventArgs e)
         {
+            // handle the grant button for grandting privileges to other users.
             foreach (ComboBox item in ((Button)sender).Parent.Controls.OfType<ComboBox>())
             {
                 if (item.SelectedIndex < 0)
@@ -245,6 +247,7 @@ namespace RFAS
 
         private void denyButton_Click(object sender, EventArgs e)
         {
+            // handle the deny button for grandting privileges to other users.
             foreach (ComboBox item in ((Button)sender).Parent.Controls.OfType<ComboBox>())
             {
                 if (item.SelectedIndex < 0)
@@ -280,6 +283,8 @@ namespace RFAS
             listsInitializer();
         }
 
+        /* The function handles the textbox text changed event and change the color
+         * according to the password strength */
         private void newPassTextBox_TextChanged(object sender, EventArgs e)
         {
             int score = (int)((float)PasswordCheckerWrapper.getPasswordScore(newPassTextBox.Text)*2.5)%12;
@@ -304,6 +309,9 @@ namespace RFAS
             label9.BackColor = passTrackBar.BackColor;
         }
 
+
+
+        // The function the password change button event.
         private void changePassButton_Click(object sender, EventArgs e)
         {
             if (passTrackBar.Value <= 8)

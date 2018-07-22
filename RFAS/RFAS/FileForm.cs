@@ -31,6 +31,8 @@ namespace RFAS
             initializeFile(accessType);
         }
 
+        /* The function is responsible for initializing the file UI interface
+         * in case of encrypted/decrypted/filetype change. */
         private void initializeFile(Models.AccessType accessType)
         {
             this.isEncryptedCheckBox.Checked = currentFile.isEncrypted;
@@ -76,42 +78,23 @@ namespace RFAS
                 }
             }
         }
-
-        private void initializePic(Models.AccessType accessType)
-        {
-
-            if (accessType.ToString().Contains("R"))
-            {
-                Bitmap newImage = null;
-                using (var image = new Bitmap(currentFile.filePath))
-                {
-                    newImage = new Bitmap(image);
-                }
-                this.FilePictureBox.Image = newImage;
-                this.FileTextBox.Visible = false;
-            }
-            else
-            {
-                this.FileTextBox.Visible = true;
-                this.FileTextBox.Text = "אינך יכול לראות את התמונה";
-                this.FileTextBox.Enabled = false;
-                MessageBox.Show("אין לך הרשאות לקרוא את הקובץ","תקלה",MessageBoxButtons.OK,MessageBoxIcon.Error);
-            }
-            
-        }
-
+     
         private void encryptButton_Click(object sender, EventArgs e)
         {
+            // If the file is not yet encrypted.. encrypt it.
             if (!currentFile.isEncrypted)
             {
                 currentFile.isEncrypted = true;
                 string encryptData = null;
+                // If it is picture.. use steganography.
                 if (currentFile.fileType==Models.FileType.Picture)
                 {
                     SteganographyDataForm form = new SteganographyDataForm();
                     var temp=form.ShowDialog();
                     encryptData = form.dataToEncrypt;
                 }
+
+                // encrypt the file!
                 currentFile.Encrypt(currUser.userKeys.Item1, currUser.userKeys.Item2,encryptData);              
                 initializeFile(accessType);
             }
@@ -121,6 +104,7 @@ namespace RFAS
 
         private void decryptButton_Click(object sender, EventArgs e)
         {
+            // If the file is Encrypted, Decrypt it!.
             if (currentFile.isEncrypted)
             {
                 currentFile.isEncrypted = false;

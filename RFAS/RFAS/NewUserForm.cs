@@ -18,6 +18,7 @@ namespace RFAS
         public NewUserForm()
         {
             InitializeComponent();
+            // Initial the combobox with all the possible user types.
             ComboBxUserType.DataSource = Enum.GetValues(typeof(UserType));
         }
 
@@ -25,6 +26,7 @@ namespace RFAS
         {
             if(txtBxPsw.Text != String.Empty && txtBxUser.Text != String.Empty)
             {
+                // If there isn't user with that user name(user name is unique).
                 var users = Models.Environment.usersList.Where(u => u.userName == txtBxUser.Text);
                 if (users.Any())
                 {
@@ -32,10 +34,12 @@ namespace RFAS
                 }
                 else
                 {
+                    // If the password strenght is good enough
                     if (score >= 4)
                     {
                         UserType UT = Utils.ParseEnum<UserType>(ComboBxUserType.SelectedItem.ToString());
                         User u = UserFactory.createUser(UT, txtBxUser.Text, txtBxPsw.Text);
+                        // Add the user to the user list.
                         Models.Environment.usersList.Add(u);
                         MessageBox.Show(" נוצר בהצלחה " + txtBxUser.Text + " המשתמש ", "יצירת משתמש", MessageBoxButtons.OK);
                     }
@@ -53,6 +57,8 @@ namespace RFAS
 
         }
 
+        /* The function handles the password text changing
+         * and shows the message according to the password strength */
         private void txtBxPsw_TextChanged(object sender, EventArgs e)
         {
             if (txtBxPsw.Text == String.Empty)

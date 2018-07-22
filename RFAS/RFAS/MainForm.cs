@@ -18,6 +18,7 @@ namespace RFAS
         public MainForm()
         {
             InitializeComponent();
+            // Initialize the AES Wrapper class singelton for further usage.
             AESEncryptionWrapper.getInstance();            
         }
         
@@ -28,14 +29,14 @@ namespace RFAS
             bool successLogin = false;
             DesktopForm desktopForm;
 
-            
             if (UserNameTextBox.Text != "user name" && passTextBox.Text!="Password")
             {
                 var users = Models.Environment.usersList.Where(u => u.userName == UserNameTextBox.Text && u.userPass == passTextBox.Text);
 
+                
                 successLogin = users.Any();
 
-
+                // If any user matched the user name and password
                 if (successLogin)
                 {
                     MessageBox.Show("Welcome user " + UserNameTextBox.Text, "Login successfully", MessageBoxButtons.OK, MessageBoxIcon.None);
@@ -54,9 +55,5 @@ namespace RFAS
                 MessageBox.Show("Please enter valid user name and password", "Login Error", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
