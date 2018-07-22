@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileForm));
             this.label1 = new System.Windows.Forms.Label();
             this.fileNameTextBox = new System.Windows.Forms.TextBox();
             this.fileAccessTextBox = new System.Windows.Forms.TextBox();
@@ -38,6 +39,7 @@
             this.encryptButton = new System.Windows.Forms.Button();
             this.grantCheckBoxView = new System.Windows.Forms.CheckBox();
             this.DenyCheckBoxView = new System.Windows.Forms.CheckBox();
+            this.isEncryptedCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.FilePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -92,7 +94,7 @@
             // 
             // FileTextBox
             // 
-            this.FileTextBox.Font = new System.Drawing.Font("Webdings", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.FileTextBox.Font = new System.Drawing.Font("Tahoma", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FileTextBox.Location = new System.Drawing.Point(147, 99);
             this.FileTextBox.Multiline = true;
             this.FileTextBox.Name = "FileTextBox";
@@ -123,6 +125,7 @@
             // grantCheckBoxView
             // 
             this.grantCheckBoxView.AutoSize = true;
+            this.grantCheckBoxView.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.grantCheckBoxView.Enabled = false;
             this.grantCheckBoxView.Location = new System.Drawing.Point(158, 52);
             this.grantCheckBoxView.Name = "grantCheckBoxView";
@@ -130,23 +133,38 @@
             this.grantCheckBoxView.TabIndex = 8;
             this.grantCheckBoxView.Text = "יכול לתת";
             this.grantCheckBoxView.UseVisualStyleBackColor = true;
+            this.grantCheckBoxView.CheckedChanged += new System.EventHandler(this.grantCheckBoxView_CheckedChanged);
             // 
             // DenyCheckBoxView
             // 
             this.DenyCheckBoxView.AutoSize = true;
+            this.DenyCheckBoxView.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.DenyCheckBoxView.Enabled = false;
-            this.DenyCheckBoxView.Location = new System.Drawing.Point(70, 52);
+            this.DenyCheckBoxView.Location = new System.Drawing.Point(57, 52);
             this.DenyCheckBoxView.Name = "DenyCheckBoxView";
             this.DenyCheckBoxView.Size = new System.Drawing.Size(84, 17);
             this.DenyCheckBoxView.TabIndex = 9;
             this.DenyCheckBoxView.Text = "יכול למנוע";
             this.DenyCheckBoxView.UseVisualStyleBackColor = true;
             // 
+            // isEncryptedCheckBox
+            // 
+            this.isEncryptedCheckBox.AutoSize = true;
+            this.isEncryptedCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.isEncryptedCheckBox.Enabled = false;
+            this.isEncryptedCheckBox.Location = new System.Drawing.Point(618, 52);
+            this.isEncryptedCheckBox.Name = "isEncryptedCheckBox";
+            this.isEncryptedCheckBox.Size = new System.Drawing.Size(57, 17);
+            this.isEncryptedCheckBox.TabIndex = 10;
+            this.isEncryptedCheckBox.Text = "מוצפן";
+            this.isEncryptedCheckBox.UseVisualStyleBackColor = true;
+            // 
             // FileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.isEncryptedCheckBox);
             this.Controls.Add(this.DenyCheckBoxView);
             this.Controls.Add(this.grantCheckBoxView);
             this.Controls.Add(this.encryptButton);
@@ -157,6 +175,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.fileNameTextBox);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FileForm";
             this.Text = "FileForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FileForm_FormClosing);
@@ -178,5 +197,6 @@
         private System.Windows.Forms.Button encryptButton;
         private System.Windows.Forms.CheckBox grantCheckBoxView;
         private System.Windows.Forms.CheckBox DenyCheckBoxView;
+        private System.Windows.Forms.CheckBox isEncryptedCheckBox;
     }
 }

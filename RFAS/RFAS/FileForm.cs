@@ -27,32 +27,54 @@ namespace RFAS
             this.fileAccessTextBox.Text = accessType.ToString();
             this.grantCheckBoxView.Checked = (int)grantDeny >= 2;
             this.DenyCheckBoxView.Checked = (int) grantDeny % 2 == 1;
-            if (file.fileType == Models.FileType.Text)
-                initializeFile(accessType);
-            else
-                initializePic(accessType);
+            this.isEncryptedCheckBox.Checked = currentFile.isEncrypted;
+            initializeFile(accessType);
         }
 
         private void initializeFile(Models.AccessType accessType)
         {
-            this.FileTextBox.Visible = true;
-            this.FileTextBox.Enabled = true;
+            this.isEncryptedCheckBox.Checked = currentFile.isEncrypted;
 
-            if (accessType.ToString().Contains("R"))
-            {             
-                this.FileTextBox.Font = SystemFonts.DefaultFont;
-                this.FileTextBox.Text = File.ReadAllText(currentFile.filePath);
+            if (currentFile.fileType == Models.FileType.Text)
+            {
+                this.FileTextBox.Visible = true;
+                this.FileTextBox.Enabled = true;
+                if (accessType.ToString().Contains("R"))
+                {
+                    this.FileTextBox.Font = SystemFonts.DefaultFont;
+                    this.FileTextBox.Text = File.ReadAllText(currentFile.filePath);
+                }
+
+                else
+                {
+                    this.FileTextBox.Font = SystemFonts.DefaultFont;
+                    this.FileTextBox.Text = "אינך יכול לקרוא את הקובץ";
+                    MessageBox.Show("אין לך הרשאות לקרוא את הקובץ");
+                }
+
+                if (!accessType.ToString().Contains("W"))
+                    this.FileTextBox.Enabled = false;
             }
-
             else
             {
-                this.FileTextBox.Font = SystemFonts.DefaultFont;
-                this.FileTextBox.Text = "אינך יכול לקרוא את הקובץ";
-                MessageBox.Show("אין לך הרשאות לקרוא את הקובץ");
+                if (accessType.ToString().Contains("R"))
+                {
+                    Bitmap newImage = null;
+                    using (var image = new Bitmap(currentFile.filePath))
+                    {
+                        newImage = new Bitmap(image);
+                    }
+                    this.FilePictureBox.Image = newImage;
+                    this.FileTextBox.Visible = false;
+                }
+                else
+                {
+                    this.FileTextBox.Visible = true;
+                    this.FileTextBox.Text = "אינך יכול לראות את התמונה";
+                    this.FileTextBox.Enabled = false;
+                    MessageBox.Show("אין לך הרשאות לקרוא את הקובץ");
+                }
             }
-
-            if (!accessType.ToString().Contains("W"))
-                this.FileTextBox.Enabled = false;
         }
 
         private void initializePic(Models.AccessType accessType)
@@ -83,7 +105,14 @@ namespace RFAS
             if (!currentFile.isEncrypted)
             {
                 currentFile.isEncrypted = true;
-                currentFile.Encrypt(currUser.userKeys.Item1, currUser.userKeys.Item2);              
+                string encryptData = null;
+                if (currentFile.fileType==Models.FileType.Picture)
+                {
+                    SteganographyDataForm form = new SteganographyDataForm();
+                    var temp=form.ShowDialog();
+                    encryptData = form.dataToEncrypt;
+                }
+                currentFile.Encrypt(currUser.userKeys.Item1, currUser.userKeys.Item2,encryptData);              
                 initializeFile(accessType);
             }
             else
@@ -123,6 +152,11 @@ namespace RFAS
         {
             MessageBox.Show("Drag and enter");
             this.FilePictureBox.Image = (Image)e.Data;
+        }
+
+        private void grantCheckBoxView_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

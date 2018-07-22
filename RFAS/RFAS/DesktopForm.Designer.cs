@@ -32,6 +32,8 @@ namespace RFAS
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DesktopForm));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.envTab = new System.Windows.Forms.TabPage();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.passTab = new System.Windows.Forms.TabPage();
             this.changeHashButton = new System.Windows.Forms.Button();
@@ -73,8 +75,6 @@ namespace RFAS
             this.loginButton = new System.Windows.Forms.Button();
             this.welcomLabel = new System.Windows.Forms.Label();
             this.FileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.envTab.SuspendLayout();
             this.passTab.SuspendLayout();
@@ -96,7 +96,7 @@ namespace RFAS
             this.tabControl.Controls.Add(this.userTab);
             this.tabControl.Controls.Add(this.desktopTab);
             this.tabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Location = new System.Drawing.Point(0, 1);
             this.tabControl.Margin = new System.Windows.Forms.Padding(0);
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
@@ -120,6 +120,26 @@ namespace RFAS
             this.envTab.TabIndex = 4;
             this.envTab.Text = " סביבה  ";
             this.envTab.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Webdings", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label12.Location = new System.Drawing.Point(-8, 188);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(810, 97);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "@@@@@@@@";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Webdings", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label11.Location = new System.Drawing.Point(-419, 277);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(234, 97);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "@#";
             // 
             // label7
             // 
@@ -623,26 +643,6 @@ namespace RFAS
             this.FileDialog.FileName = "openFileDialog1";
             this.FileDialog.Filter = "txt files (*.txt)|";
             this.FileDialog.InitialDirectory = "c:\\";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Webdings", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label11.Location = new System.Drawing.Point(-419, 277);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(234, 97);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "@#";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Webdings", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label12.Location = new System.Drawing.Point(-8, 188);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(810, 97);
-            this.label12.TabIndex = 2;
-            this.label12.Text = "@@@@@@@@";
             // 
             // DesktopForm
             // 

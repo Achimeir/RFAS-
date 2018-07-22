@@ -27,7 +27,7 @@ namespace Models
             System.IO.File.WriteAllText(this.filePath, descryptedtext);
         }
 
-        public override void Encrypt(byte[] key, byte[] iv)
+        public override void Encrypt(byte[] key, byte[] iv, string encryptData = null)
         {
             var input = System.IO.File.ReadAllText(this.filePath);
             byte[] encryptedBytes = AESEncryptionWrapper.getInstance().EncryptStringToBytes(input, key, iv);
@@ -47,37 +47,21 @@ namespace Models
         public override void Decrypt(byte[] key, byte[] iv)
         {
             Image imgInput = Image.FromFile(this.filePath);
-            using (var ms = new MemoryStream())
-            {
-                imgInput.Save(ms, imgInput.RawFormat);
-                byte[] imageBytes = ms.ToArray();
-                string imageStr = AESEncryptionWrapper.getInstance().DecryptStringFromBytes(imageBytes, key, iv);
-                byte[] DecryptedimageBytes = Convert.FromBase64String(imageStr);
-                System.IO.File.WriteAllBytes(this.filePath, imageBytes);
-            }
+
+            System.Windows.Forms.MessageBox.Show(SteganographyHelper.extractText((Bitmap)imgInput));
+            imgInput.Dispose();
         }
 
-        public override void Encrypt(byte[] key, byte[] iv)
+        public override void Encrypt(byte[] key, byte[] iv,string encryptData=null)
         {
             string temppic = Path.GetTempPath() + "temp" + Path.GetExtension(filePath);
             Image imgInput = Image.FromFile(this.filePath);
-            using (var ms = new MemoryStream())
-            {
-                imgInput.Save(ms, imgInput.RawFormat);
-                byte[] imageBytes =  ms.ToArray();
-                string imageStr = Convert.ToBase64String(imageBytes);
-                byte[] imageEncryptedBytes = AESEncryptionWrapper.getInstance().EncryptStringToBytes(imageStr, key, iv);                
-                System.IO.File.WriteAllBytes(temppic, imageEncryptedBytes);
-            }
-
-            // stupid bug...]
-
-
-            //System.IO.File.Replace(temppic, filePath,Path.GetTempPath() + "temp//backup");
-
+           
+            imgInput =(Image)SteganographyHelper.embedText(encryptData, (Bitmap)imgInput);
+            imgInput.Save(temppic);
             imgInput.Dispose();
-            System.IO.File.Delete(filePath);
-            
+
+            System.IO.File.Delete(filePath);           
             System.IO.File.Copy(temppic, filePath);
         }
     }
@@ -103,7 +87,7 @@ namespace Models
         public Classification classification { get; set; }
         
 
-        public abstract void Encrypt(byte[] key, byte[] iv);
+        public abstract void Encrypt(byte[] key, byte[] iv, string encryptData = null);
         public abstract void Decrypt(byte[] key, byte[] iv);
 
 
