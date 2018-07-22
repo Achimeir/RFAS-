@@ -26,20 +26,8 @@ namespace RFAS
 
         public void CreateMyListView(Object obj, PurposeType purposeItem)
         {
-            // Create a new ListView control.
-            // Set the view to show details.
             listView.View = View.Details;
-            // Allow the user to edit item text.
-           // listView.LabelEdit = true;
-            // Allow the user to rearrange columns.
-            //listView.AllowColumnReorder = true;
-            // Display check boxes.
-            //listView.CheckBoxes = true;
-            // Select the item and subitems when selection is made.
-            //listView.FullRowSelect = true;
-            // Display grid lines.
             listView.GridLines = true;
-            // Sort the items in the list in ascending order.
             listView.Sorting = SortOrder.Ascending;
           
             listView.Columns.Add("שם", 250, HorizontalAlignment.Center);
@@ -83,7 +71,7 @@ namespace RFAS
                 {
                     listView.Columns.Add(user.userName, 100);
                 }
-                //listView.Items.AddRange(user.userRole.filesDict.ToList<ListViewItem>())
+
                 bool empty = true;
                 foreach (var file in Models.Environment.filesList)
                 {
@@ -102,36 +90,7 @@ namespace RFAS
                     listView.Items.Add(lwi);
                 }
 
-                       //     foreach (Models.User usr in Models.Environment.usersList.Where(item=>item.userRole.filesDict.ContainsKey(dictItem.Key)))
-                       // {
-                       //     usr.userRole.filesDict[dictItem.Key];
-                       // }
-            //}
-
             }
-
-            // Create three items and three sets of subitems for each item.
-            //ListViewItem item1 = new ListViewItem("קובץ 1", 0);
-           // ListViewItem item1 = new ListViewItem("!");
-            //item1.SubItems.AddRange("כתיבה",;
-            // Place a check mark next to the item.
-
-            //ListViewItem item2 = new ListViewItem("קובץ 2", 1);
-            //item2.SubItems.Add("קריאה");
-
-            //ListViewItem item3 = new ListViewItem("כתיבה");
-            //ListViewItem item4 = new ListViewItem("קריאה");
-            // Create columns for the items and subitems.
-            // Width of -2 indicates auto-size.
-
-            //listView.Columns.Add("שם",250, HorizontalAlignment.Left);
-            // listView.Columns.Add("הרשאה", 250, HorizontalAlignment.Center);
-
-            //Add the items to the ListView.
-
-            //listView.Items.AddRange(new ListViewItem[] { item1, item2 });
-            //listView.Items.AddRange(new ListViewItem[] { item3, item4 });
-            // Add the ListView to the control collection.
             this.Controls.Add(listView);
         }
 

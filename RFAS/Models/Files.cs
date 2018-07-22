@@ -47,8 +47,7 @@ namespace Models
         public override void Decrypt(byte[] key, byte[] iv)
         {
             Image imgInput = Image.FromFile(this.filePath);
-
-            System.Windows.Forms.MessageBox.Show(SteganographyHelper.extractText((Bitmap)imgInput)+"הטקסט שהוצפן הוא: \n","פיענוח הצפנה");
+            System.Windows.Forms.MessageBox.Show(SteganographyWrapper.ExtractTextFromImage((Bitmap)imgInput)+"הטקסט שהוצפן הוא: \n", "פיענוח הצפנה");
             imgInput.Dispose();
         }
 
@@ -57,7 +56,7 @@ namespace Models
             string temppic = Path.GetTempPath() + "temp" + Path.GetExtension(filePath);
             Image imgInput = Image.FromFile(this.filePath);
            
-            imgInput =(Image)SteganographyHelper.embedText(encryptData, (Bitmap)imgInput);
+            imgInput =(Image)SteganographyWrapper.HideTextInImage(encryptData, (Bitmap)imgInput);
             imgInput.Save(temppic);
             imgInput.Dispose();
 

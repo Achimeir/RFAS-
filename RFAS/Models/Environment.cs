@@ -38,7 +38,7 @@ namespace Models
 
             filesList = new List<File>();
 
-            accessList = new List<Access>(); 
+        
         }
 
         public void login (string userName, string userPass)
