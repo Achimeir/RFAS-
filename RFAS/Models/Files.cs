@@ -21,18 +21,32 @@ namespace Models
 
         public override void Decrypt(byte[] key, byte[] iv)
         {
-            var input = System.IO.File.ReadAllText(this.filePath);
-            var inputInBytes = Convert.FromBase64String(input);
-            string descryptedtext = AESEncryptionWrapper.getInstance().DecryptStringFromBytes(inputInBytes, key, iv);
-            System.IO.File.WriteAllText(this.filePath, descryptedtext);
-        }
+            try
+            {
+                var input = System.IO.File.ReadAllText(this.filePath);
+                var inputInBytes = Convert.FromBase64String(input);
+                string descryptedtext = AESEncryptionWrapper.getInstance().DecryptStringFromBytes(inputInBytes, key, iv);
+                System.IO.File.WriteAllText(this.filePath, descryptedtext);
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message+" הפענוח נכשל מהסיבה","תקלה",System.Windows.Forms.MessageBoxButtons.OK,System.Windows.Forms.MessageBoxIcon.Error);
+            }
+}
 
         public override void Encrypt(byte[] key, byte[] iv, string encryptData = null)
         {
-            var input = System.IO.File.ReadAllText(this.filePath);
-            byte[] encryptedBytes = AESEncryptionWrapper.getInstance().EncryptStringToBytes(input, key, iv);
-            var cypherText = Convert.ToBase64String(encryptedBytes);
-            System.IO.File.WriteAllText(this.filePath, cypherText);
+            try
+            {
+                var input = System.IO.File.ReadAllText(this.filePath);
+                byte[] encryptedBytes = AESEncryptionWrapper.getInstance().EncryptStringToBytes(input, key, iv);
+                var cypherText = Convert.ToBase64String(encryptedBytes);
+                System.IO.File.WriteAllText(this.filePath, cypherText);
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message+" ההצפנה נכשלה מהסיבה", "תקלה", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+            }
         }
     }
 
@@ -46,23 +60,39 @@ namespace Models
 
         public override void Decrypt(byte[] key, byte[] iv)
         {
-            Image imgInput = Image.FromFile(this.filePath);
-            System.Windows.Forms.MessageBox.Show(SteganographyWrapper.ExtractTextFromImage((Bitmap)imgInput)+"הטקסט שהוצפן הוא: \n", "פיענוח הצפנה");
-            imgInput.Dispose();
+            try
+            {
+                Image imgInput = Image.FromFile(this.filePath);
+                System.Windows.Forms.MessageBox.Show(":הטקסט שהוצפן הוא"+ System.Environment.NewLine+SteganographyWrapper.ExtractTextFromImage((Bitmap)imgInput) , "פיענוח הצפנה");
+                imgInput.Dispose();
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message + " הפענוח נכשל מהסיבה", "תקלה", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+            }
+
         }
 
         public override void Encrypt(byte[] key, byte[] iv,string encryptData=null)
         {
-            string temppic = Path.GetTempPath() + "temp" + Path.GetExtension(filePath);
-            Image imgInput = Image.FromFile(this.filePath);
-           
-            imgInput =(Image)SteganographyWrapper.HideTextInImage(encryptData, (Bitmap)imgInput);
-            imgInput.Save(temppic);
-            imgInput.Dispose();
+            try
+            {
+                string temppic = Path.GetTempPath() + "temp" + Path.GetExtension(filePath);
+                Image imgInput = Image.FromFile(this.filePath);
 
-            System.IO.File.Delete(filePath);           
-            System.IO.File.Copy(temppic, filePath);
-        }
+                imgInput = (Image)SteganographyWrapper.HideTextInImage(encryptData, (Bitmap)imgInput);
+                imgInput.Save(temppic);
+                imgInput.Dispose();
+
+                System.IO.File.Delete(filePath);
+                System.IO.File.Copy(temppic, filePath);
+            }
+                        
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message+" ההצפנה נכשלה מהסיבה", "תקלה", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+            }
+}
     }
     public abstract class File
     {

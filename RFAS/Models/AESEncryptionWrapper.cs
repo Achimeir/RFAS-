@@ -87,23 +87,23 @@ namespace Models
                 ICryptoTransform decryptor = rijAlg.CreateDecryptor(rijAlg.Key, rijAlg.IV);
 
                 // Create the streams used for decryption. 
-                using (MemoryStream msDecrypt = new MemoryStream(cipherText))
-                {
-                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    using (MemoryStream msDecrypt = new MemoryStream(cipherText))
                     {
-                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                        using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
                         {
-                            try
+                            using (StreamReader srDecrypt = new StreamReader(csDecrypt))
                             {
-                                plaintext = srDecrypt.ReadToEnd();
-                            }
-                            catch
-                            {
-                                MessageBox.Show("מצטערים, נראה שאין לך את המפתחות הנכונים לפיענוח הקובץ...");
+                                try
+                                {
+                                    plaintext = srDecrypt.ReadToEnd();
+                                }
+                                catch
+                                {
+                                    MessageBox.Show("מצטערים, נראה שאין לך את המפתחות הנכונים לפיענוח הקובץ...");
+                                }
                             }
                         }
                     }
-                }
 
             }
 
